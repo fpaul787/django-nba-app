@@ -1,10 +1,13 @@
-FROM python:3.7
-ENV PYTHONUNBUFFERED 1
-RUN mkdir /code
-WORKDIR /code
-COPY requirements.txt /code/
-RUN pip install -r requirements.txt
-COPY . /code/
+FROM node:12
 
-EXPOSE 8000
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+WORKDIR /app/
+
+COPY package.json /app/
+
+RUN npm install
+
+COPY . /app/
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
