@@ -1,6 +1,6 @@
-import React, { Component, Fragment } from 'react'
+import React, { Fragment } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Home, Header } from './components/exports'
+import { Home, Header, Games } from './components/exports'
 
 
 function App() {
@@ -10,6 +10,7 @@ function App() {
                 <Header />
                 <Switch>
                     <Route exact path="/" component={Home}></Route>
+                    <Route exact path="/games" component={Games}/>
                 </Switch>
             </Fragment>
         </Router>
