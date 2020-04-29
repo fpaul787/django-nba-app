@@ -15,11 +15,12 @@ const GamesTable = ({ gameData }) => {
 
     const [boxscore, setBoxscore] = useState()
 
-    async function requestBoxscoreAsynchronously(gameData) {
-        if (gameData === false) {
+    async function requestBoxscoreAsynchronously() {
+        if (gameData === null) {
             setBoxscore(null)
         } else {
             
+            console.log(gameData)
             let gameID = gameData.gameId
             let gameDate = gameData.startDateEastern
 
@@ -30,6 +31,7 @@ const GamesTable = ({ gameData }) => {
             let responseJSON = await response.json()
 
             setBoxscore(responseJSON)
+            console.log(boxscore)
         }
     }
 
@@ -39,12 +41,12 @@ const GamesTable = ({ gameData }) => {
     // By using this Hook, you tell React that
     // your component needs to do something after render.
     useEffect(() => {
-        requestBoxscoreAsynchronously(gameData)
+        requestBoxscoreAsynchronously()
     }, [gameData])
 
     const classes = GamesStyles()
 
-    if (gameData === false) {
+    if (gameData === null) {
         return (
             <Fragment>
                 
