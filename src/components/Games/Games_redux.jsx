@@ -7,11 +7,17 @@ import GamesTable from './components/GamesTable'
 import Calender from 'react-calendar'
 import './Calendar.css'
 
+import {connect} from 'react-redux'
+import Proptypes from 'prop-types'
+import {getGames} from '../../actions/games'
+
 function parseDate(customDate, separator = '', reverse = false) {
+    
     if (customDate == null) {
         customDate = new Date(2020, 3, 15)
     }
-
+    
+    
     let day = customDate.getDate()
     let month = customDate.getMonth() + 1
     let year = customDate.getFullYear()
@@ -27,23 +33,15 @@ function parseDate(customDate, separator = '', reverse = false) {
     }${separator}${day < 10 ? `0${day}` : `${day}`}`
 }
 
-const Games = () => {
-    const [gamesData, setGamesData] = useState()
+const Games = ({getGames, gamesProp}) => {
+
+   
+    const [gamesData, setGamesData] = useState(false)
     const [gameData, setGameData] = useState(null)
-    const [gameDate, setGameDate] = useState()
+    const [gamesDate, setGameDate] = useState(null)
 
     const classes = GamesStyles()
-    async function requestGamesAsynchronously(dateInput) {
-        var date = parseDate(dateInput)
-
-        const url = `http://127.0.0.1:8000/games/${date}`
-
-        let response = await fetch(url)
-
-        let responseJSON = await response.json()
-
-        setGamesData(responseJSON)
-    }
+   
 
     // useEffect Hook is similar to
     // componentDidMunt, componentDidUpdate,
@@ -51,14 +49,46 @@ const Games = () => {
     // By using this Hook, you tell React that
     // your component needs to do something after render.
     useEffect(() => {
-        requestGamesAsynchronously(gameDate)
-        setGameDate(gameDate)
-    }, [gameDate])
+        
+        requestGamesAsynchronously()
+        console.log(gamesProp)
+    }, [gamesDate])
 
-    if (gamesData == null) {
-        return <Spinner />
+    async function requestGamesAsynchronously() {
+
+            
+        var date = parseDate(gamesDate)
+        
+        await getGames(date)
+        setGamesData(gamesProp.games)       
+        
+        
+    }
+
+    
+    
+    if (!gamesData) {
+        
+        return (
+            <div>
+            <Grid className={classes.datePickerGrid} item xs={3} >
+                    <h4>Please choose a date </h4>
+                    <div>
+                        <Calender
+                            selected={gamesDate}
+                            value={gamesDate}
+                            onChange={setGameDate}
+                            minDate={new Date(2015, 10, 6)}
+                            maxDate={new Date(2020, 3, 15)}
+                            className={classes.datePicker}
+                        />
+                    </div>
+                </Grid>
+            </div>
+            )
     } else {
-        const games = gamesData.games
+        const games = gamesData
+        
         return (
             <Grid
                 container
@@ -72,8 +102,8 @@ const Games = () => {
                     <h4>Pick a date </h4>
                     <div>
                         <Calender
-                            selected={gameDate}
-                            value={gameDate}
+                            selected={gamesDate}
+                            value={gamesDate}
                             onChange={setGameDate}
                             minDate={new Date(2015, 10, 6)}
                             maxDate={new Date(2020, 3, 15)}
@@ -83,7 +113,7 @@ const Games = () => {
                 </Grid>
 
                 <Grid className={classes.gamesDisplayGrid} item xs={3}>
-                    <h4>Games on {parseDate(gameDate, '/', true)}:</h4>
+                    <h4>Games on {parseDate(gamesDate, '/', true)}:</h4>
                     <Paper className={classes.gamesPaper}>
                         <Fragment>
                             <List>
@@ -94,6 +124,7 @@ const Games = () => {
                                             button
                                             className={classes.ListItem}
                                             onClick={() => {
+                                                console.log('Clicked', game)
                                                 setGameData(game)
                                             }}
                                         >
@@ -112,7 +143,7 @@ const Games = () => {
                     </Paper>
                 </Grid>
                 <Grid container item xs={3} spacing={3} className={classes.gameTableGrid}>
-                <h2>Grid</h2>
+                <h2>Game Table</h2>
                 <GamesTable gameData={gameData} />
                 </Grid>
                 
@@ -121,4 +152,13 @@ const Games = () => {
     }
 }
 
-export default Games
+Games.propTypes ={
+    getGames: Proptypes.func.isRequired,
+    gamesProp: Proptypes.array
+}
+
+// state of redu
+const mapStateToProps = state => ({
+    gamesProp: state.gamesReducer.games
+})
+export default connect(mapStateToProps, {getGames}) (Games)
