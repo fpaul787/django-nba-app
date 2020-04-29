@@ -1,10 +1,13 @@
 import React, { Fragment } from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import { Home, Header, Games } from './components/exports'
+import {Provider} from 'react-redux'
+import store from './store'
 
 
 function App() {
     return (
+        <Provider store={store}>
         <Router>
             <Fragment>
                 <Header />
@@ -14,6 +17,8 @@ function App() {
                 </Switch>
             </Fragment>
         </Router>
+        </Provider>
+        
     )
 }
 

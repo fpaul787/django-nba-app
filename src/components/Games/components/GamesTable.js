@@ -12,12 +12,14 @@ import Typography from '@material-ui/core/Typography'
 import GamesStyles from '../GamesStyles'
 import Spinner from '../../Spinner'
 const GamesTable = ({ gameData }) => {
+
     const [boxscore, setBoxscore] = useState()
 
     async function requestBoxscoreAsynchronously(gameData) {
-        if (gameData == null) {
+        if (gameData === false) {
             setBoxscore(null)
         } else {
+            
             let gameID = gameData.gameId
             let gameDate = gameData.startDateEastern
 
@@ -42,7 +44,7 @@ const GamesTable = ({ gameData }) => {
 
     const classes = GamesStyles()
 
-    if (gameData == null) {
+    if (gameData === false) {
         return (
             <Fragment>
                 
@@ -59,7 +61,7 @@ const GamesTable = ({ gameData }) => {
             </Fragment>
         )
     } else if (boxscore == null) {
-        return <Spinner />
+        return (<Spinner />)
     } else if (boxscore != null && boxscore.stats == null) {
         return (
             <Fragment>
