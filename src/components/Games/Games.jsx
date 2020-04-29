@@ -7,11 +7,16 @@ import GamesTable from './components/GamesTable'
 import Calender from 'react-calendar'
 import './Calendar.css'
 
+import {connect} from 'react-redux'
+import Proptypes from 'prop-types'
+import {getGames} from '../../actions/games'
+
 function parseDate(customDate, separator = '', reverse = false) {
     if (customDate == null) {
         customDate = new Date(2020, 3, 15)
     }
-
+    
+    
     let day = customDate.getDate()
     let month = customDate.getMonth() + 1
     let year = customDate.getFullYear()
@@ -27,23 +32,15 @@ function parseDate(customDate, separator = '', reverse = false) {
     }${separator}${day < 10 ? `0${day}` : `${day}`}`
 }
 
-const Games = () => {
-    const [gamesData, setGamesData] = useState()
-    const [gameData, setGameData] = useState()
+const Games = ({getGames, gamesProp}) => {
+
+   
+    const [gamesData, setGamesData] = useState(false)
+    const [gameData, setGameData] = useState(false)
     const [gameDate, setGameDate] = useState()
 
     const classes = GamesStyles()
-    async function requestGamesAsynchronously(dateInput) {
-        var date = parseDate(dateInput)
-
-        const url = `http://127.0.0.1:8000/games/${date}`
-
-        let response = await fetch(url)
-
-        let responseJSON = await response.json()
-
-        setGamesData(responseJSON)
-    }
+   
 
     // useEffect Hook is similar to
     // componentDidMunt, componentDidUpdate,
@@ -51,14 +48,45 @@ const Games = () => {
     // By using this Hook, you tell React that
     // your component needs to do something after render.
     useEffect(() => {
-        requestGamesAsynchronously(gameDate)
-        setGameDate(gameDate)
+        function requestGamesAsynchronously() {
+            var date = parseDate(gameDate)
+    
+            getGames(date)
+    
+            
+            if(gamesProp.length !== 0){
+                setGamesData(gamesProp.games)
+            }
+            
+        }
+        requestGamesAsynchronously()
+        
     }, [gameDate])
 
-    if (gamesData == null) {
-        return <Spinner />
+    
+
+    if (!gamesData) {
+        //console.log(gamesProp)
+        return (
+            <div>
+            <Grid className={classes.datePickerGrid} item xs={3} >
+                    <h4>Please choose a date </h4>
+                    <div>
+                        <Calender
+                            selected={gameDate}
+                            value={gameDate}
+                            onChange={setGameDate}
+                            minDate={new Date(2015, 10, 6)}
+                            maxDate={new Date(2020, 3, 15)}
+                            className={classes.datePicker}
+                        />
+                    </div>
+                </Grid>
+            </div>
+            )
     } else {
-        const games = gamesData.games
+        const games = gamesData
+        
         return (
             <Grid
                 container
@@ -112,7 +140,7 @@ const Games = () => {
                     </Paper>
                 </Grid>
                 <Grid container item xs={3} spacing={3} className={classes.gameTableGrid}>
-                <h2>Grid</h2>
+                <h2>Game Table</h2>
                 <GamesTable gameData={gameData} />
                 </Grid>
                 
@@ -121,4 +149,12 @@ const Games = () => {
     }
 }
 
-export default Games
+Games.propTypes ={
+    gamesProp: Proptypes.object
+}
+
+// state of redu
+const mapStateToProps = state => ({
+    gamesProp: state.gamesReducer.games
+})
+export default connect(mapStateToProps, {getGames}) (Games)
