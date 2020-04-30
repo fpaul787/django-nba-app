@@ -3,8 +3,6 @@ import { Grid, Paper, List ,ListItem, ListItemText} from '@material-ui/core'
 import Spinner from '../Spinner'
 import GamesStyles from './GamesStyles'
 import GamesTable from './GamesTable/GamesTable'
-
-
 import {CustomCalendar} from './Calendar'
 import {parseDate} from '../utility/parseDate' // utility function to parse date from calendar choice
 
@@ -16,13 +14,13 @@ const Games = () => {
     const classes = GamesStyles()
 
 
-    async function requestGames(dateInput) {
+    async function requestGames() {
+        if(gameDate === null){
+            setGameDate(new Date(2020, 2, 11))
+        }
         var date = parseDate(gameDate)
-
         let response = await fetch(`http://127.0.0.1:8000/games/${date}`)
-
         let responseJSON = await response.json()
-
         setGamesData(responseJSON)
     }
 
@@ -36,10 +34,10 @@ const Games = () => {
     // By using this Hook, you tell React that
     // your component needs to do something after render.
     useEffect(() => {
-        requestGames() // check
-    
+        requestGames() // check    
     }, [gameDate])
 
+    // data has not been loaded yet
     if (gamesData == null) {
         return (<Spinner />)
     } else {
@@ -51,16 +49,13 @@ const Games = () => {
             <Grid
                 container
                 direction="row"
-                justify="flex-start"
                 alignItems="flex-start"
-                spacing={2}
+                spacing={1}
                 className={classes.root}
             >
-                <Grid className={classes.datePickerGrid} item xs={3} >
+                <Grid className={classes.datePickerGrid} item xs={2} >
                     <h4>Pick a date </h4>
-                    <div>
-                        <CustomCalendar gamesDate={new Date()} handleClick={handleDateChange}/>
-                    </div>
+                    <CustomCalendar gamesDate={new Date()} handleClick={handleDateChange}/>                    
                 </Grid>
 
                 <Grid className={classes.gamesDisplayGrid} item xs={3}>
@@ -92,11 +87,10 @@ const Games = () => {
                         </Fragment>
                     </Paper>
                 </Grid>
-                <Grid container item xs={3} spacing={3} className={classes.gameTableGrid}>
-                <h2>Grid</h2>
-                <GamesTable gameData={gameData} />
-                </Grid>
-                
+                <Grid container item xs={4} spacing={3} className={classes.gameTableGrid}>
+                <h4>Game Track</h4>
+                    <GamesTable gameData={gameData} />
+                </Grid>                
             </Grid>
         )
     }

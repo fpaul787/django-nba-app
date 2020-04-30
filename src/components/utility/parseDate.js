@@ -1,6 +1,6 @@
 export function parseDate(customDate, separator = '', reverse = false) {
     if (customDate == null) {
-        customDate = new Date(2020, 3, 15)
+        customDate = new Date()
     }
 
     let day = customDate.getDate()

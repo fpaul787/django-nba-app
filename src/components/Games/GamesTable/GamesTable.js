@@ -9,8 +9,9 @@ import {
     TableRow,
 } from '@material-ui/core'
 import Typography from '@material-ui/core/Typography'
-import GamesStyles from '../GamesStyles'
+import GamesTableStyles from './GamesTableStyles'
 import Spinner from '../../Spinner'
+
 const GamesTable = ({ gameData }) => {
 
     const [boxscore, setBoxscore] = useState()
@@ -20,31 +21,21 @@ const GamesTable = ({ gameData }) => {
             setBoxscore(null)
         } else {
             
-            console.log(gameData)
             let gameID = gameData.gameId
             let gameDate = gameData.startDateEastern
 
             const url = `http://127.0.0.1:8000/games/${gameDate}/${gameID}`
-
             let response = await fetch(url)
-
             let responseJSON = await response.json()
-
             setBoxscore(responseJSON)
-            console.log(boxscore)
         }
     }
 
-    // useEffect Hook is similar to
-    // componentDidMunt, componentDidUpdate,
-    // and componentWillUnmount
-    // By using this Hook, you tell React that
-    // your component needs to do something after render.
     useEffect(() => {
         requestBoxscoreAsynchronously()
     }, [gameData])
 
-    const classes = GamesStyles()
+    const classes = GamesTableStyles()
 
     if (gameData === null) {
         return (
@@ -67,9 +58,8 @@ const GamesTable = ({ gameData }) => {
     } else if (boxscore != null && boxscore.stats == null) {
         return (
             <Fragment>
-                <div  className={classes.gameInfoItem}>
-                    <TableContainer className={classes.table}>
-                        <Typography
+                <div  >
+                <Typography
                             className={classes.title}
                             variant="h6"
                             id="tableTitle"
@@ -77,8 +67,10 @@ const GamesTable = ({ gameData }) => {
                             No stats available now. Check again when the game
                             starts.
                         </Typography>
+                    <TableContainer className={classes.gameInfoTable}>
+                        
                         <Table
-                            className={classes.table}
+                            className={classes.gameInfotable}
                             aria-label="simple table"
                         >
                             <TableHead>
@@ -108,7 +100,7 @@ const GamesTable = ({ gameData }) => {
 
         return (
             <Fragment>
-                <Grid item xs={12} sm={6} className={classes.gameInfoItem}>
+                <Grid item xs={12} sm={6} className={classes.gameInfotable}>
                     <TableContainer className={classes.table}>
                         <Typography
                             className={classes.title}
@@ -119,9 +111,11 @@ const GamesTable = ({ gameData }) => {
                                 ' VS ' +
                                 boxscore.basicGameData.hTeam.triCode}
                         </Typography>
+
                         <Table
-                            className={classes.table}
+                            
                             aria-label="simple table"
+                            
                         >
                             <TableHead>
                                 <TableRow>

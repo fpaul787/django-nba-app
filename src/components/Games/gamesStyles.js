@@ -44,39 +44,21 @@ const GamesStyles = makeStyles({
         marginTop: 30,
         marginBottom: 30,
     },
-    table: {
-        minWidth: 300,
-        width: 'auto',
-    },
 
-    title: {
-        flex: '1 1 100%',
-        textAlign: 'center',
-    },
 
     datePickerGrid: {
-        marginLeft: 100,
+        marginLeft: 70,
         marginTop: 50    
     },
 
     gamesDisplayGrid: {
-        marginLeft: 100,
+        marginLeft: 40,
         marginTop: 50
     },
 
-    datePicker: {
-        backgroundColor: '#D3D3D3',
-        width: 280,
-        fontSize: 'large',
-        textAlign: 'center',
-        
-        
-    },
-
     gameTableGrid:{
-        marginLeft: 100,
-        marginTop: 50,
-        backgroundColor: 'red'    
+        marginLeft: 70,
+        marginTop: 50,   
     }
 
     
