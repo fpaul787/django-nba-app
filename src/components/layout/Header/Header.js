@@ -24,6 +24,23 @@ export default function Header() {
                         </Link>
                     </div>
                 </div>
+                <div className="">
+                    <div className="navbar-item">
+                    <Link
+                            to="/login"
+                            className="btn btn-md btn-outline-secondary mx-2"
+                        >
+                            <strong>Login</strong>
+                        </Link>
+                        <Link
+                            to="/register"
+                            className="btn btn-md btn-outline-secondary mx-2"
+                        >
+                            <strong>Register</strong>
+                        </Link>
+                    </div>
+                    
+                </div>
             </nav>
         </div>
     )

@@ -13,11 +13,13 @@ export default function(state = initialState, action){
     switch(action.type){
         
         case GET_GAMES:
-            
+            console.log(action.payload)
             
             return{
                 ...state,                 
-                games: action.payload
+                games: Object.assign({}, state, {
+                    games: action.payload
+                })
             }
            
         default:

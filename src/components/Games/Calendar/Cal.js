@@ -1,12 +1,10 @@
 import React from 'react'
 import Calender from 'react-calendar'
 import './Calendar.css'
-import { Grid, Paper, List, ListItem, ListItemText } from '@material-ui/core'
+import { Grid } from '@material-ui/core'
 import CalendarStyles from './CalenderStyles'
 
-const onChange = (date) => {
-    console.log(date)
-}
+
 export default function calendar({ gamesDate, handleClick }) {
     const classes = CalendarStyles()
 

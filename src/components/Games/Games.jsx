@@ -19,9 +19,16 @@ const Games = () => {
             setGameDate(new Date(2020, 2, 11))
         }
         var date = parseDate(gameDate)
-        let response = await fetch(`http://127.0.0.1:8000/games/${date}`)
-        let responseJSON = await response.json()
-        setGamesData(responseJSON)
+
+        try{
+            let response = await fetch(`http://127.0.0.1:8000/games/${date}`)
+            let responseJSON = await response.json()
+            setGamesData(responseJSON)
+        }catch(error){
+            console.log(error)
+        }
+        
+        
     }
 
     function handleDateChange(date){
