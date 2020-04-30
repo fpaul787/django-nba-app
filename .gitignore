@@ -32,3 +32,4 @@ env
 docker-compose.builder.yml
 >>>>>>> dev
 features.txt
+src/components/Games/Games_redux.jsx

@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import Spinner from '../Spinner'
+
 import { Grid, Paper, List } from '@material-ui/core'
-import GamesStyles from './GamesStyles'
+import GamesStyles from '../GamesStyles'
 import { ListItem, ListItemText } from '@material-ui/core'
 import GamesTable from './components/GamesTable'
 import Calender from 'react-calendar'
@@ -9,7 +9,7 @@ import './Calendar.css'
 
 import {connect} from 'react-redux'
 import Proptypes from 'prop-types'
-import {getGames} from '../../actions/games'
+import {getGames} from '../../../actions/games'
 
 function parseDate(customDate, separator = '', reverse = false) {
     
@@ -32,7 +32,7 @@ function parseDate(customDate, separator = '', reverse = false) {
         month < 10 ? `0${month}` : `${month}`
     }${separator}${day < 10 ? `0${day}` : `${day}`}`
 }
-
+ 
 const Games = ({getGames, gamesProp}) => {
 
    

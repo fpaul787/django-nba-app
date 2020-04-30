@@ -1,48 +1,33 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { Grid, Paper, List ,ListItem, ListItemText} from '@material-ui/core'
 import Spinner from '../Spinner'
-import { Grid, Paper, List } from '@material-ui/core'
 import GamesStyles from './GamesStyles'
-import { ListItem, ListItemText } from '@material-ui/core'
-import GamesTable from './components/GamesTable'
-import Calender from 'react-calendar'
-import './Calendar.css'
+import GamesTable from './GamesTable/GamesTable'
 
-function parseDate(customDate, separator = '', reverse = false) {
-    if (customDate == null) {
-        customDate = new Date(2020, 3, 15)
-    }
 
-    let day = customDate.getDate()
-    let month = customDate.getMonth() + 1
-    let year = customDate.getFullYear()
+import {CustomCalendar} from './Calendar'
+import {parseDate} from '../utility/parseDate' // utility function to parse date from calendar choice
 
-    if (reverse) {
-        return `${month < 10 ? `0${month}` : `${month}`}${separator}${
-            day < 10 ? `0${day}` : `${day}`
-        }${separator}${year}`
-    }
-
-    return `${year}${separator}${
-        month < 10 ? `0${month}` : `${month}`
-    }${separator}${day < 10 ? `0${day}` : `${day}`}`
-}
 
 const Games = () => {
-    const [gamesData, setGamesData] = useState()
+    const [gamesData, setGamesData] = useState(null)
     const [gameData, setGameData] = useState(null)
-    const [gameDate, setGameDate] = useState()
-
+    const [gameDate, setGameDate] = useState(null)
     const classes = GamesStyles()
-    async function requestGamesAsynchronously(dateInput) {
-        var date = parseDate(dateInput)
 
-        const url = `http://127.0.0.1:8000/games/${date}`
 
-        let response = await fetch(url)
+    async function requestGames(dateInput) {
+        var date = parseDate(gameDate)
+
+        let response = await fetch(`http://127.0.0.1:8000/games/${date}`)
 
         let responseJSON = await response.json()
 
         setGamesData(responseJSON)
+    }
+
+    function handleDateChange(date){
+        setGameDate(date)
     }
 
     // useEffect Hook is similar to
@@ -51,14 +36,17 @@ const Games = () => {
     // By using this Hook, you tell React that
     // your component needs to do something after render.
     useEffect(() => {
-        requestGamesAsynchronously(gameDate)
-        setGameDate(gameDate)
+        requestGames() // check
+    
     }, [gameDate])
 
     if (gamesData == null) {
-        return <Spinner />
+        return (<Spinner />)
     } else {
+
+        // change this
         const games = gamesData.games
+        
         return (
             <Grid
                 container
@@ -71,14 +59,7 @@ const Games = () => {
                 <Grid className={classes.datePickerGrid} item xs={3} >
                     <h4>Pick a date </h4>
                     <div>
-                        <Calender
-                            selected={gameDate}
-                            value={gameDate}
-                            onChange={setGameDate}
-                            minDate={new Date(2015, 10, 6)}
-                            maxDate={new Date(2020, 3, 15)}
-                            className={classes.datePicker}
-                        />
+                        <CustomCalendar gamesDate={new Date()} handleClick={handleDateChange}/>
                     </div>
                 </Grid>
 
