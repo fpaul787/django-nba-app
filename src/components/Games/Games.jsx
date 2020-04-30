@@ -1,7 +1,7 @@
 import React, { Fragment, useState, useEffect } from 'react'
 import { Grid, Paper, List ,ListItem, ListItemText} from '@material-ui/core'
 import Spinner from '../Spinner'
-import GamesStyles from './GamesStyles'
+import GamesStyles from './GameStyles'
 import GamesTable from './GamesTable/GamesTable'
 import {CustomCalendar} from './Calendar'
 import {parseDate} from '../utility/parseDate' // utility function to parse date from calendar choice
