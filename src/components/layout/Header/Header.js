@@ -1,7 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-export default function Header() {
+import * as actions from '../../../store/actions/auth'
+export default function Header(props) {
+    
+    
     return (
+        
         <div>
             <nav
                 className="navbar navbar-light bg-dark"
@@ -26,7 +30,18 @@ export default function Header() {
                 </div>
                 <div className="">
                     <div className="navbar-item">
-                    <Link
+                        {
+                            props.auth.isAuthenticated ?
+                            <Link
+                           
+                            className="btn btn-md btn-outline-secondary mx-2"
+                            onClick={props.logout}
+                        >
+                            <strong>Logout</strong>
+                        </Link>
+                            :
+                            <div>
+                            <Link
                             to="/login"
                             className="btn btn-md btn-outline-secondary mx-2"
                         >
@@ -38,10 +53,21 @@ export default function Header() {
                         >
                             <strong>Register</strong>
                         </Link>
+                            </div>
+                            
+                        }
+                    
+                        
                     </div>
                     
                 </div>
             </nav>
         </div>
     )
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        logout: () => dispatch(actions.logout())
+    }
 }

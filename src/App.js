@@ -8,13 +8,15 @@ import * as actions from './store/actions/auth'
 function App(props) {
 
     useEffect(() => {
+        
         props.onTryAutoSignup()
     })
+    
     return (
         
         <Router>
             <Fragment>
-                <Header />
+                <Header auth={props}/>
                 <Switch>
                     <Route exact path="/" component={Home}></Route>
                     <Route exact path="/games" component={Games}/>
@@ -29,8 +31,10 @@ function App(props) {
 }
 
 const mapStateToProps = state => {
+    
     return {
-        isAuthenticated: state.token !== null,
+        
+        isAuthenticated: state.authReducer.token !== null,
 
     }
 }
