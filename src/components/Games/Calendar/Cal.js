@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core'
 import CalendarStyles from './CalenderStyles'
 
 
-export default function calendar({ gamesDate, handleClick }) {
+export default function calendar({ gamesDateProp, handleClick }) {
     const classes = CalendarStyles()
 
     return (
@@ -13,8 +13,8 @@ export default function calendar({ gamesDate, handleClick }) {
             <Grid>
                 <div>
                     <Calender
-                        selected={gamesDate}
-                        value={gamesDate}
+                        selected={gamesDateProp}
+                        value={gamesDateProp}
                         onChange={(date) => {
                             handleClick(date)
                         }}

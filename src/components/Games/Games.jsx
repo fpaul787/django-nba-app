@@ -1,69 +1,52 @@
 import React, { Fragment, useState, useEffect } from 'react'
-import { Grid, Paper, List ,ListItem, ListItemText} from '@material-ui/core'
+import { Grid, Paper, List, ListItem, ListItemText } from '@material-ui/core'
 import Spinner from '../Spinner'
 import GamesStyles from './GameStyles'
 import GamesTable from './GamesTable/GamesTable'
-import {CustomCalendar} from './Calendar'
-import {parseDate} from '../utility/parseDate' // utility function to parse date from calendar choice
-import {connect} from 'react-redux'
+import { CustomCalendar } from './Calendar'
+
+// utility function to parse date from calendar choice
+import { parseDate } from '../utility/parseDate' 
+import { connect } from 'react-redux'
 import * as actions from '../../store/actions/games'
 
 const Games = (props) => {
     const [gamesData, setGamesData] = useState(null)
     const [gameData, setGameData] = useState(null)
-    const [gameDate, setGameDate] = useState(null)
+    const [gameDate, setGameDate] = useState(new Date(2020, 2, 10))
     const classes = GamesStyles()
+    
 
-
-    async function requestGames() {
-
-        // get rid of this
-        if(gameDate === null){
-            
-            setGameDate(new Date(2020, 2, 11))
-        }
-
-        
-        var date = parseDate(gameDate, '', false,  new Date(2020, 2, 11))
-
-        try{
-            
-            let response = await fetch(`http://127.0.0.1:8000/games/${date}`)
-            //console.log(props.getGames(`${date}`))
-            
-            let responseJSON = await response.json()
-            setGamesData(responseJSON)
-            
-            
-        }catch(error){
-            console.log(error)
-        }
-        
-        
-    }
-
-    function handleDateChange(date){
-        setGameDate(date)
-    }
-
-    // useEffect Hook is similar to
-    // componentDidMunt, componentDidUpdate,
-    // and componentWillUnmount
-    // By using this Hook, you tell React that
-    // your component needs to do something after render.
+    // infinite render if placed in 
+    // useEffect array
+    const {gamesProp} = props
     useEffect(() => {
-        requestGames() // check   
         
+        function requestGames() {
+            var date = parseDate(gameDate)            
+            try {                
+                props.getGames(`${date}`)
+
+                setGamesData(props.gamesProp)
+            } catch (error) {
+                console.log(error)
+            }
+        }    
+        requestGames()
     }, [gameDate])
+    
 
     // data has not been loaded yet
     if (gamesData == null) {
-        return (<Spinner />)
+        return (
+            <div>
+                <Spinner />
+            </div>
+        )
     } else {
-
         // change this
         const games = gamesData.games
-        
+
         return (
             <Grid
                 container
@@ -72,9 +55,12 @@ const Games = (props) => {
                 spacing={1}
                 className={classes.root}
             >
-                <Grid className={classes.datePickerGrid} item xs={2} >
+                <Grid className={classes.datePickerGrid} item xs={2}>
                     <h4>Pick a date </h4>
-                    <CustomCalendar gamesDate={new Date()} handleClick={handleDateChange}/>                    
+                    <CustomCalendar
+                        gamesDateProp={new Date()}
+                        handleClick={setGameDate}
+                    />
                 </Grid>
 
                 <Grid className={classes.gamesDisplayGrid} item xs={3}>
@@ -106,26 +92,30 @@ const Games = (props) => {
                         </Fragment>
                     </Paper>
                 </Grid>
-                <Grid container item xs={4} spacing={3} className={classes.gameTableGrid}>
-                <h4>Game Track</h4>
+                <Grid
+                    container
+                    item
+                    xs={4}
+                    spacing={3}
+                    className={classes.gameTableGrid}
+                >
+                    <h4>Game Track</h4>
                     <GamesTable gameData={gameData} />
-                </Grid>                
+                </Grid>
             </Grid>
         )
     }
 }
 
-
 const mapStateToProps = (state) => {
     return {
-        gamesProp: state.games
+        gamesProp: state.gamesReducer.games,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        getGames: (url) =>
-            dispatch(actions.getGames(url)),
+        getGames: (url) => dispatch(actions.getGames(url)),
     }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(Games)
