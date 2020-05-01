@@ -12,10 +12,10 @@ import * as actions from '../../store/actions/auth'
 
 const LogIn = (props) => {
     const onFinish = values => {
-        console.log('Received values of form: ', values);
         
-        props.onAuth(values.username, values.Password)
-            props.history.push('/') // redirect
+        
+        props.onAuth(values.username, values.password)
+        props.history.push('/') // redirect
       };
 
     

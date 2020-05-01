@@ -8,6 +8,7 @@ export const authStart = () => {
 }
 
 export const authSuccess = (token) => {
+    
     return {
         type: actionTypes.AUTH_SUCCESS,
         token: token,
@@ -41,11 +42,18 @@ export const checkAuthTimeout = expirationTime => {
 export const authLogin = (username, password)  => {
     return dispatch => {
         dispatch(authStart())
-        axios.post('http://127.0.0.1:8000/rest-auth/login', {
-            username: username,
-            password: password
+        
+        
+        axios.post('http://localhost:8000/rest-auth/login/', {
+
+        username: username,
+        password: password
+            
+            
         }).then(res => {
+            
             const token = res.data.key
+            
             const expirationDate = new Date(new Date().getTime() + 3600 * 1000)
 
             // store in local storage
@@ -56,7 +64,7 @@ export const authLogin = (username, password)  => {
         })
         .catch(error => {
             dispatch(authFail(error))
-            console.log('Could not login', error)
+            console.log('Could not login :(', error)
         })
     }
 
@@ -100,7 +108,7 @@ export const authCheckState = () => {
                 dispatch(logout())
             }else{
                 dispatch(authSuccess(token))
-                dispatch((checkAuthTimeout(expirationDate.getTime() - new Date().getTime()) /1000))
+                dispatch(checkAuthTimeout((expirationDate.getTime() - new Date().getTime()) /1000))
             }
         }
     }

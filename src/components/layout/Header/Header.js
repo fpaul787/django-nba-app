@@ -1,8 +1,9 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import * as actions from '../../../store/actions/auth'
-export default function Header(props) {
-    
+import {connect} from 'react-redux'
+
+function Header(props) {    
     
     return (
         
@@ -71,3 +72,5 @@ const mapDispatchToProps = dispatch => {
         logout: () => dispatch(actions.logout())
     }
 }
+
+export default withRouter (connect(null, mapDispatchToProps)(Header))
