@@ -4,37 +4,35 @@ import Spinner from '../Spinner'
 import GamesStyles from './GameStyles'
 import GamesTable from './GamesTable/GamesTable'
 import { CustomCalendar } from './Calendar'
+import { useDispatch, useSelector } from 'react-redux'
 
 // utility function to parse date from calendar choice
-import { parseDate } from '../utility/parseDate' 
-import { connect } from 'react-redux'
+import { parseDate } from '../utility/parseDate'
+
 import * as actions from '../../store/actions/games'
 
 const Games = (props) => {
-    const [gamesData, setGamesData] = useState(null)
-    const [gameData, setGameData] = useState(null)
+    const gamesData = useSelector((state) => state.gamesReducer.games)
+    const dispatch = useDispatch()
+
+
+    const [gameData, setGameData] = useState(null);
     const [gameDate, setGameDate] = useState(new Date(2020, 2, 10))
     const classes = GamesStyles()
-    
 
-    // infinite render if placed in 
+    // infinite render if placed in
     // useEffect array
-    const {gamesProp} = props
+    const { gamesProp } = props
     useEffect(() => {
-        
-        function requestGames() {
-            var date = parseDate(gameDate)            
-            try {                
-                props.getGames(`${date}`)
+        const date = parseDate(gameDate)
+        try {
+            dispatch(actions.getGames(`${date}`))
 
-                setGamesData(props.gamesProp)
-            } catch (error) {
-                console.log(error)
-            }
-        }    
-        requestGames()
-    }, [gameDate])
-    
+            
+        } catch (error) {
+            console.log(error)
+        }
+    }, [gameDate, dispatch])
 
     // data has not been loaded yet
     if (gamesData == null) {
@@ -107,15 +105,4 @@ const Games = (props) => {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        gamesProp: state.gamesReducer.games,
-    }
-}
-
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getGames: (url) => dispatch(actions.getGames(url)),
-    }
-}
-export default connect(mapStateToProps, mapDispatchToProps)(Games)
+export default Games
