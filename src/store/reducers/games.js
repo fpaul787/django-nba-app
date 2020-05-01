@@ -6,20 +6,18 @@ import {GET_GAMES} from '../actions/types'
 // depending on action
 
 const initialState = {
-    games: [] // what we're fetching from backend
+    games: null // what we're fetching from backend
 }
 
 export default function(state = initialState, action){
     switch(action.type){
         
         case GET_GAMES:
-            console.log(action.payload)
+            //console.log(action.payload)
             
             return{
                 ...state,                 
-                games: Object.assign({}, state, {
-                    games: action.payload
-                })
+                games: action.payload
             }
            
         default:

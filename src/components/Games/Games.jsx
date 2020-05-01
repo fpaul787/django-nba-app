@@ -5,9 +5,10 @@ import GamesStyles from './GameStyles'
 import GamesTable from './GamesTable/GamesTable'
 import {CustomCalendar} from './Calendar'
 import {parseDate} from '../utility/parseDate' // utility function to parse date from calendar choice
+import {connect} from 'react-redux'
+import * as actions from '../../store/actions/games'
 
-
-const Games = () => {
+const Games = (props) => {
     const [gamesData, setGamesData] = useState(null)
     const [gameData, setGameData] = useState(null)
     const [gameDate, setGameDate] = useState(null)
@@ -15,15 +16,25 @@ const Games = () => {
 
 
     async function requestGames() {
+
+        // get rid of this
         if(gameDate === null){
+            
             setGameDate(new Date(2020, 2, 11))
         }
-        var date = parseDate(gameDate)
+
+        
+        var date = parseDate(gameDate, '', false,  new Date(2020, 2, 11))
 
         try{
+            
             let response = await fetch(`http://127.0.0.1:8000/games/${date}`)
+            //console.log(props.getGames(`${date}`))
+            
             let responseJSON = await response.json()
             setGamesData(responseJSON)
+            
+            
         }catch(error){
             console.log(error)
         }
@@ -41,7 +52,8 @@ const Games = () => {
     // By using this Hook, you tell React that
     // your component needs to do something after render.
     useEffect(() => {
-        requestGames() // check    
+        requestGames() // check   
+        
     }, [gameDate])
 
     // data has not been loaded yet
@@ -103,4 +115,17 @@ const Games = () => {
     }
 }
 
-export default Games
+
+const mapStateToProps = (state) => {
+    return {
+        gamesProp: state.games
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getGames: (url) =>
+            dispatch(actions.getGames(url)),
+    }
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Games)

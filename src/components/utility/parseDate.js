@@ -1,6 +1,7 @@
-export function parseDate(customDate, separator = '', reverse = false) {
+export function parseDate(customDate,  separator = '', reverse = false, passedDate = null) {
     if (customDate == null) {
         customDate = new Date()
+        
     }
 
     let day = customDate.getDate()
