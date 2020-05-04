@@ -22,7 +22,7 @@ function Header(props) {
                 <div className="mr-auto ml-auto">
                     <div className="navbar-item">
                         <Link
-                            to="/games"
+                            to="/track"
                             className="btn btn-md btn-outline-secondary mx-2"
                         >
                             <strong>Track Games</strong>
