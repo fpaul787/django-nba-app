@@ -25,6 +25,10 @@ const GamesTableStyles = makeStyles({
         textAlign: 'center',
     },
 
+    button: {
+        width: 200,
+        marginTop: 20
+    }
     
 })
 

@@ -1,48 +1,56 @@
 import React, { Fragment, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
-import { Home, Header, Track, Login, Register, NoMatch } from './components/exports'
-import { connect} from 'react-redux'
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Redirect,
+} from 'react-router-dom'
+import {
+    Home,
+    Header,
+    Track,
+    Login,
+    Register,
+    NoMatch,
+    PrivateRoute,
+    Dashboard,
+} from './components/exports'
+import { connect } from 'react-redux'
 
 import * as actions from './store/actions/auth'
 
 function App(props) {
-
     useEffect(() => {
         console.log('App js', props.isAuthenticated)
         props.onTryAutoSignup()
     })
-    
+
     return (
-        
         <Router>
             <Fragment>
-                <Header auth={props}/>
+                <Header auth={props} />
                 <Switch>
                     <Route exact path="/" component={Home}></Route>
-                    <Route exact path="/track" component={Track}/>
+                    <Route exact path="/track" component={Track} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
-                    <Route component={NoMatch}/>
+                    <PrivateRoute exact path="/dashboard" component={Dashboard} auth={props}/>
+                    <Route component={NoMatch} />
                 </Switch>
             </Fragment>
         </Router>
-        
-        
     )
 }
 
-const mapStateToProps = state => {
-    
+const mapStateToProps = (state) => {
     return {
-        
         isAuthenticated: state.authReducer.token !== null,
-
     }
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
-        onTryAutoSignup: () => dispatch(actions.authCheckState())
+        onTryAutoSignup: () => dispatch(actions.authCheckState()),
     }
 }
 
