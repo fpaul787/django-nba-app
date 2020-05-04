@@ -16,18 +16,16 @@ const Games = (props) => {
     const dispatch = useDispatch()
 
 
+    // may not need local state
     const [gameData, setGameData] = useState(null);
     const [gameDate, setGameDate] = useState(new Date(2020, 2, 10))
     const classes = GamesStyles()
 
-    // infinite render if placed in
-    // useEffect array
-    const { gamesProp } = props
+
     useEffect(() => {
         const date = parseDate(gameDate)
         try {
             dispatch(actions.getGames(`${date}`))
-
             
         } catch (error) {
             console.log(error)

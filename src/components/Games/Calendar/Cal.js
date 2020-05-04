@@ -19,7 +19,7 @@ export default function calendar({ gamesDateProp, handleClick }) {
                             handleClick(date)
                         }}
                         minDate={new Date(2015, 10, 6)}
-                        maxDate={new Date(2020, 2, 11)}
+                        maxDate={new Date(2020, 2, 10)}
                         className={classes.datePicker}
                     />
                 </div>
