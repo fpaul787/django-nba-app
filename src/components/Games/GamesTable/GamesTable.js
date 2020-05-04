@@ -11,6 +11,8 @@ import {
 import Typography from '@material-ui/core/Typography'
 import GamesTableStyles from './GamesTableStyles'
 import Spinner from '../../Spinner'
+import {ColorButton} from './ColorButton'
+
 
 const GamesTable = ({ gameData }) => {
 
@@ -177,7 +179,9 @@ const GamesTable = ({ gameData }) => {
                                 </TableRow>
                             </TableBody>
                         </Table>
+                        
                     </TableContainer>
+                    <ColorButton className={classes.button}>Add to my games</ColorButton>
                 </Grid>
             </Fragment>
         )

@@ -9,9 +9,10 @@ import { useDispatch, useSelector } from 'react-redux'
 // utility function to parse date from calendar choice
 import { parseDate } from '../utility/parseDate'
 
+// import actions from redux store
 import * as actions from '../../store/actions/games'
 
-const Games = (props) => {
+const Games = () => {
     const gamesData = useSelector((state) => state.gamesReducer.games)
     const dispatch = useDispatch()
 
