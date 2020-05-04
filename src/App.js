@@ -1,6 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
-import { Home, Header, Games, Login, Register } from './components/exports'
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom'
+import { Home, Header, Track, Login, Register, NoMatch } from './components/exports'
 import { connect} from 'react-redux'
 
 import * as actions from './store/actions/auth'
@@ -19,9 +19,10 @@ function App(props) {
                 <Header auth={props}/>
                 <Switch>
                     <Route exact path="/" component={Home}></Route>
-                    <Route exact path="/games" component={Games}/>
+                    <Route exact path="/track" component={Track}/>
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
+                    <Route component={NoMatch}/>
                 </Switch>
             </Fragment>
         </Router>
