@@ -1,5 +1,6 @@
 import * as actionTypes from './types'
 import axios from 'axios'
+import {setAlert} from './alert'
 
 export const authStart = () => {
     return {
@@ -16,6 +17,8 @@ export const authSuccess = (token) => {
 }
 
 export const authFail = (error) => {
+    
+    
     return {
         type: actionTypes.AUTH_FAIL,
         error: error,
@@ -63,8 +66,11 @@ export const authLogin = (username, password)  => {
             dispatch(checkAuthTimeout(3600))
         })
         .catch(error => {
-            dispatch(authFail(error))
-            console.log('Could not login :(', error)
+
+            const errorMessage = error.response.data.non_field_errors[0]
+            dispatch(authFail(errorMessage))
+            dispatch(setAlert(errorMessage, 'danger'))
+            //console.log(error.response.data.non_field_errors[0])
         })
     }
 

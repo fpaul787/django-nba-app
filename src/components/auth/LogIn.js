@@ -23,7 +23,7 @@ const LogIn = (props) => {
         e.preventDefault()
 
         props.onAuthLogin(username, password)
-        props.history.push('/') // redirect
+        props.history.push('/login') // redirect
     }
 
     let errorMessage = null
@@ -33,7 +33,7 @@ const LogIn = (props) => {
 
     // Redirect if logged in
     if (props.auth.isAuthenticated) {
-        return <Redirect />
+        return <Redirect to="/dashboard"/>
     }
     return (
         <div>

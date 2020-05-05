@@ -7,8 +7,7 @@ function PrivateRoute (props) {
     const Component = props.component;
     const {isAuthenticated, loading} = useSelector((state) => state.authReducer)
     
-    console.log("Private isAuthenticated: ", isAuthenticated)
-    console.log("Private loading:", loading)
+    
     
     
     

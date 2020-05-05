@@ -14,8 +14,10 @@ import {
     NoMatch,
     PrivateRoute,
     Dashboard,
+    Alert
 } from './components/exports'
 import { connect } from 'react-redux'
+
 
 import * as actions from './store/actions/auth'
 
@@ -29,6 +31,9 @@ function App(props) {
         <Router>
             <Fragment>
                 <Header auth={props} />
+                <div>
+                <Alert/>
+                </div>
                 <Switch>
                     <Route exact path="/" component={Home}></Route>
                     <Route exact path="/track" component={Track} />
