@@ -33,3 +33,4 @@ src/components/Games/Games_redux.jsx
 djangonba/test.py
 djangonba/build
 
+djangonba/db.sqlite3
