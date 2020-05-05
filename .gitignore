@@ -34,3 +34,4 @@ djangonba/test.py
 djangonba/build
 
 djangonba/db.sqlite3
+djangonba/db.sqlite3
