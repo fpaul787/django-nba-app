@@ -16,6 +16,7 @@ function Header(props) {
             <Link
                 className="btn btn-md btn-outline-secondary mx-2"
                 onClick={props.logout}
+                to="/"
             >
                 <strong>Logout</strong>
             </Link>

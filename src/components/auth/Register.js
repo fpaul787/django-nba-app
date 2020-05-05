@@ -1,134 +1,137 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { Form, Input, Button } from 'antd'
+import React, { useState } from 'react'
+import { Link, Redirect } from 'react-router-dom'
 import * as actions from '../../store/actions/auth'
 import { connect } from 'react-redux'
+import Spinner from '../Spinner'
 
 const Register = (props) => {
-    const [form] = Form.useForm()
+    // object with field values
+    const [formData, setFormData] = useState({
+        username: '',
+        email: '',
+        password1: '',
+        password2: '',
+    })
 
-    const onFinish = (values) => {
-        // console.log('Received values of form: ', values)
+    const { username, email, password1, password2 } = formData
 
-        props.onAuth(
-            values.username,
-            values.email,
-            values.password1,
-            values.password2,
-            values.confirm
-        )
+    const onChange = (e) => {
+        setFormData({ ...formData, [e.target.name]: e.target.value })
     }
 
+    const onSubmit = async (e) => {
+        e.preventDefault()
+
+        props.onAuthSignUp(username, email, password1, password2)
+        props.history.push('/') // redirect
+    }
+
+    let errorMessage = null
+    if (props.error) {
+        errorMessage = <p>{props.error.message}</p>
+    }
+
+    // Redirect if logged in
+    if (props.auth.isAuthenticated) {
+        return <Redirect />
+    }
     return (
-        <Form
-            form={form}
-            name="register"
-            onFinish={onFinish}
-            initialValues={{
-                residence: ['zhejiang', 'hangzhou', 'xihu'],
-                prefix: '86',
-            }}
-            scrollToFirstError
-        >
-            <Form.Item
-                name="email"
-                label="E-mail"
-                rules={[
-                    {
-                        type: 'email',
-                        message: 'The input is not valid E-mail!',
-                    },
-                    {
-                        required: true,
-                        message: 'Please input your E-mail!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-            
-            <Form.Item
-                name="username"
-                label="Username"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your username!',
-                    },
-                ]}
-            >
-                <Input />
-            </Form.Item>
-
-            <Form.Item
-                name="password"
-                label="Password"
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please input your password!',
-                    },
-                ]}
-                hasFeedback
-            >
-                <Input.Password />
-            </Form.Item>
-
-            <Form.Item
-                name="confirm"
-                label="Confirm Password"
-                dependencies={['password']}
-                hasFeedback
-                rules={[
-                    {
-                        required: true,
-                        message: 'Please confirm your password!',
-                    },
-                    ({ getFieldValue }) => ({
-                        validator(rule, value) {
-                            if (!value || getFieldValue('password') === value) {
-                                return Promise.resolve()
-                            }
-
-                            return Promise.reject(
-                                'The two passwords that you entered do not match!'
-                            )
-                        },
-                    }),
-                ]}
-            >
-                <Input.Password />
-            </Form.Item>
-
-            <Form.Item>
-                <Button
-                    type="primary"
-                    htmlType="submit"
-                    style={{ marginRight: '10px' }}
+        <div>
+            {errorMessage}
+            {props.loading ? (
+                <Spinner />
+            ) : (
+                <div
+                    style={{
+                        display: 'flex',
+                        justifyContent: 'center',
+                        alignItems: 'center',
+                        height: '80vh',
+                    }}
                 >
-                    Register
-                </Button>
-                Or
-                <Link
-                    style={{ marginLeft: '10px', marginRight: '10px' }}
-                    to="/login"
-                >
-                    Login
-                </Link>
-            </Form.Item>
-        </Form>
+                    <form onSubmit={(e) => onSubmit(e)}>
+                        <div className="form-group">
+                            <label>Email</label>
+                            <input
+                                type="email"
+                                className="form-control"
+                                placeholder="Enter email"
+                                name="email"
+                                onChange={(e) => onChange(e)}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>User Name</label>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="User Name"
+                                name="username"
+                                onChange={(e) => onChange(e)}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                placeholder="Password"
+                                name="password1"
+                                onChange={(e) => onChange(e)}
+                            />
+                        </div>
+                        <div className="form-group">
+                            <label>Password</label>
+                            <input
+                                type="password"
+                                className="form-control"
+                                placeholder="Confirm Password"
+                                name="password2"
+                                onChange={(e) => onChange(e)}
+                            />
+                        </div>
+
+                        <button
+                            style={{ marginLeft: '10px', marginRight: '10px', marginBottom: '10px' }}
+                            type="submit"
+                            className="btn btn-primary"
+                        >
+                            Register
+                        </button>
+
+                        <div>
+                            <small style={{
+                                    marginLeft: '10px',
+                                    marginRight: '10px',
+                                }} className="form-text text-muted">
+                                Already have an account?
+                            </small>
+                            <Link
+                                className="btn btn-secondary"
+                                style={{
+                                    marginLeft: '10px',
+                                    marginRight: '10px',
+                                }}
+                                to="/login"
+                            >
+                                Login
+                            </Link>
+                        </div>
+                    </form>
+                </div>
+            )}
+        </div>
     )
 }
 const mapStateToProps = (state) => {
     return {
-        loading: state.loading,
-        error: state.error,
+        auth: state.authReducer,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        onAuth: (username, email, password1, password2) =>
+        onAuthSignUp: (username, email, password1, password2) =>
             dispatch(actions.authSignup(username, email, password1, password2)),
     }
 }
