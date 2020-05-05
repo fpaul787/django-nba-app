@@ -21,7 +21,7 @@ import * as actions from './store/actions/auth'
 
 function App(props) {
     useEffect(() => {
-        console.log('App js', props.isAuthenticated)
+        
         props.onTryAutoSignup()
     })
 
