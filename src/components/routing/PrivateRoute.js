@@ -5,14 +5,17 @@ import { useSelector } from 'react-redux'
 function PrivateRoute (props) {
 
     const Component = props.component;
-    const {isAuthenticated} = useSelector((state) => state.authReducer)
+    const {isAuthenticated, loading} = useSelector((state) => state.authReducer)
     
-    console.log(isAuthenticated)
+    console.log("Private isAuthenticated: ", isAuthenticated)
+    console.log("Private loading:", loading)
+    
+    
     
     return (
         <Route 
         render={props =>
-                !isAuthenticated  ? (
+                !isAuthenticated && !loading  ? (
                     <Redirect to="/login" />
                 ) : (
                     <Component {...props} />
