@@ -1,9 +1,15 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
+import Spinner from '../Spinner'
 
-export default function dashboard() {
-    return (
-        <div>
-            <h1>My dashboard</h1>
-        </div>
+const Dashboard = () => {
+
+    const {loading} = useSelector((state) => state.authReducer)
+    return loading ? (
+        <Spinner/>
+    ) : (
+        <div>Dashboard</div>
     )
 }
+
+export default Dashboard

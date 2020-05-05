@@ -2,7 +2,7 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import * as actions from '../../../store/actions/auth'
 import { connect } from 'react-redux'
-import Spinner from '../../Spinner'
+
 
 function Header(props) {
     const authLinks = (
