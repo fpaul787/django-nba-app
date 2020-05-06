@@ -18,6 +18,15 @@ build website:
 test artifact:
     stage: test
     script:
-      - grep "React" ./build/index.html
-      - grep "xxxxD" ./build/index.html
+      - grep -q "React" ./build/index.html
+
+test website:
+    state: test
+    script:
+      - npm install
+      - npm install
+      - npm install -g create-react-app 
+      - npm start
+      - curl "http://localhost:3000" |  grep -q "React"
+      
     
