@@ -17,7 +17,7 @@ from pathlib import Path
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #print(Path(BASE_DIR).parents[0] , str(4))
 GRANDPARENT_BASE_DIR = Path(BASE_DIR).parents[0]
-print(GRANDPARENT_BASE_DIR , str(10))
+# print(GRANDPARENT_BASE_DIR, str(10))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
@@ -28,7 +28,7 @@ SECRET_KEY = '&ktqa0eh3j3wo4on1-$hy)k_xy3t)s*m(6yihfwza+mv7eo+hp'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [ 'localhost', '127.0.0.1' ]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
 
 # Application definition
@@ -40,7 +40,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+
     'rest_framework.authtoken',
     'rest_auth',
     'django.contrib.sites',
@@ -51,8 +51,9 @@ INSTALLED_APPS = [
 
     'rest_framework',
     'corsheaders',
-    'request'
-    
+    'request',
+    'games'
+
 ]
 SITE_ID = 1
 MIDDLEWARE = [
@@ -64,7 +65,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware'
-    
+
 ]
 
 ROOT_URLCONF = 'djangonba.urls'
@@ -118,12 +119,18 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.AllowAny',
-    ),
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-    ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.AllowAny',
+    # ),
+
+    # Need token
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework.authentication.TokenAuthentication',
+    # ),
+
+    'DEFAULT_PERMISSION_CLASS': [
+        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
+    ]
 }
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -145,18 +152,14 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = (
-   os.path.join(GRANDPARENT_BASE_DIR, 'build', 'static' ),
+    os.path.join(GRANDPARENT_BASE_DIR, 'build', 'static'),
 )
 
 
-# Enable CORS for all domains by 
+# Enable CORS for all domains by
 # adding the following setting
 CORS_ORIGIN_ALLOW_ALL = True
 
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = False
-
-
-
-
