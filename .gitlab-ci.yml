@@ -2,6 +2,8 @@ image: node:12
 
 build website:
     script:
+      - unset CI
       - npm install
       - npm install -g create-react-app
       - npm run build
+    
