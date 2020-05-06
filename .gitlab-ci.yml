@@ -21,7 +21,7 @@ test artifact:
       - grep -q "React" ./build/index.html
 
 test website:
-    state: test
+    stage: test
     script:
       - npm install
       - npm install
