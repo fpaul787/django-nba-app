@@ -1,10 +1,10 @@
-image: node:12
 
 stages:
   - build
   - test
 
 build website:
+  image: node:12
     stage: build
     script:
       - unset CI #   get rid of "Treating warnings as errors because process.env.CI = true" error
@@ -16,6 +16,7 @@ build website:
           - ./build
 
 test artifact:
+    image: alphine
     stage: test
     script:
       - grep -q "React" ./build/index.html
@@ -24,9 +25,9 @@ test website:
     stage: test
     script:
       - npm install
-      - npm install
       - npm install -g create-react-app 
-      - npm start
-      - curl "http://localhost:3000" |  grep -q "React"
+      - npm start &
+      - sleep 5 #not the smartest way to do it because it will always wait 5 seconds, despite how fast server is
+      - curl "http://localhost:3000" | tac | tac | grep -q "React"
       
     
