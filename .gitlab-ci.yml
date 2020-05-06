@@ -22,6 +22,7 @@ test artifact:
       - grep -q "React" ./build/index.html
 
 test website:
+    image: node:12
     stage: test
     script:
       - npm install
