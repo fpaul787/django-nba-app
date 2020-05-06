@@ -16,7 +16,7 @@ build website:
           - ./build
 
 test artifact:
-    image: alphine
+    image: alphne
     stage: test
     script:
       - grep -q "React" ./build/index.html
