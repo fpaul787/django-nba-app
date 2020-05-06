@@ -9,6 +9,7 @@ const initialState = {
     games: null // what we're fetching from backend
 }
 
+
 export default function(state = initialState, action){
     switch(action.type){
         
@@ -16,8 +17,7 @@ export default function(state = initialState, action){
             return{
                 ...state,                 
                 games: action.payload
-            }
-           
+            }      
         default:
             return state
     }

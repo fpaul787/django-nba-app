@@ -18,3 +18,4 @@ export const getGames = (date) => dispatch => {
     }).catch(err => console.log(err))
 
 }
+

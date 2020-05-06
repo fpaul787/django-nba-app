@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { Grid } from '@material-ui/core'
 import {
     Table,
@@ -11,66 +12,54 @@ import {
 import Typography from '@material-ui/core/Typography'
 import GamesTableStyles from './GamesTableStyles'
 import Spinner from '../../Spinner'
-import {ColorButton} from './ColorButton'
-
+import { ColorButton } from './ColorButton'
+import { useDispatch, useSelector } from 'react-redux'
+import * as actions from '../../../store/actions/game'
 
 const GamesTable = ({ gameData }) => {
+    const boxscore = useSelector((state) => state.gameReducer.game)
+    const dispatch = useDispatch()
 
-    const [boxscore, setBoxscore] = useState()
-
-    async function requestBoxscoreAsynchronously() {
-        if (gameData === null) {
-            setBoxscore(null)
-        } else {
-            
+    useEffect(() => {
+        if (gameData !== null) {
             let gameID = gameData.gameId
             let gameDate = gameData.startDateEastern
 
-            const url = `http://127.0.0.1:8000/games/${gameDate}/${gameID}`
-            let response = await fetch(url)
-            let responseJSON = await response.json()
-            setBoxscore(responseJSON)
+            try {
+                dispatch(actions.getGame(gameDate, gameID))
+            } catch (error) {
+                console.log(error)
+            }
         }
-    }
-
-    useEffect(() => {
-        requestBoxscoreAsynchronously()
-    }, [gameData])
+    }, [gameData, dispatch])
 
     const classes = GamesTableStyles()
 
     if (gameData === null) {
         return (
             <Fragment>
-                
-                    <TableContainer >
-                        <Typography
-                           
-                            variant="h6"
-                            id="tableTitle"
-                        >
-                            Please choose a Game
-                        </Typography>
-                    </TableContainer>
-                
+                <TableContainer>
+                    <Typography variant="h6" id="tableTitle">
+                        Please choose a Game
+                    </Typography>
+                </TableContainer>
             </Fragment>
         )
     } else if (boxscore == null) {
-        return (<Spinner />)
+        return <Spinner />
     } else if (boxscore != null && boxscore.stats == null) {
         return (
             <Fragment>
-                <div  >
-                <Typography
-                            className={classes.title}
-                            variant="h6"
-                            id="tableTitle"
-                        >
-                            No stats available now. Check again when the game
-                            starts.
-                        </Typography>
+                <div>
+                    <Typography
+                        className={classes.title}
+                        variant="h6"
+                        id="tableTitle"
+                    >
+                        No stats available now. Check again when the game
+                        starts.
+                    </Typography>
                     <TableContainer className={classes.gameInfoTable}>
-                        
                         <Table
                             className={classes.gameInfotable}
                             aria-label="simple table"
@@ -96,7 +85,7 @@ const GamesTable = ({ gameData }) => {
             </Fragment>
         )
     } else {
-        console.log(boxscore)
+        // console.log(boxscore)
         const visitingTeamStatsLeaders = boxscore.stats.vTeam.leaders
         const homeTeamStatsLeaders = boxscore.stats.hTeam.leaders
 
@@ -114,11 +103,7 @@ const GamesTable = ({ gameData }) => {
                                 boxscore.basicGameData.hTeam.triCode}
                         </Typography>
 
-                        <Table
-                            
-                            aria-label="simple table"
-                            
-                        >
+                        <Table aria-label="simple table">
                             <TableHead>
                                 <TableRow>
                                     <TableCell>Team</TableCell>
@@ -179,9 +164,12 @@ const GamesTable = ({ gameData }) => {
                                 </TableRow>
                             </TableBody>
                         </Table>
-                        
                     </TableContainer>
-                    <ColorButton className={classes.button}>Add to my games</ColorButton>
+                    <Link to="/dashboard">
+                        <ColorButton className={classes.button}>
+                            Add to my games
+                        </ColorButton>
+                    </Link>
                 </Grid>
             </Fragment>
         )
