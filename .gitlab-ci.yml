@@ -2,8 +2,11 @@ image: node:12
 
 build website:
     script:
-      - unset CI
+      - unset CI #   get rid of "Treating warnings as errors because process.env.CI = true" error
       - npm install
       - npm install -g create-react-app
       - npm run build
+    artifacts:
+        paths: 
+          - ./build
     
