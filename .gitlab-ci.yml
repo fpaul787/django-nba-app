@@ -4,7 +4,7 @@ stages:
   - test
 
 build website:
-  image: node:12
+    image: node:12
     stage: build
     script:
       - unset CI #   get rid of "Treating warnings as errors because process.env.CI = true" error
@@ -16,7 +16,7 @@ build website:
           - ./build
 
 test artifact:
-    image: alphne
+    image: alpine
     stage: test
     script:
       - grep -q "React" ./build/index.html
