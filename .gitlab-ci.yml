@@ -1,6 +1,6 @@
 image: node:12
 
-stage:
+stages:
   - build
   - test
 
