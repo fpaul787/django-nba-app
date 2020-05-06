@@ -3,23 +3,27 @@ import { Link, withRouter } from 'react-router-dom'
 import * as actions from '../../../store/actions/auth'
 import { connect } from 'react-redux'
 
-
 function Header(props) {
     const authLinks = (
-        <div>
-            <Link
-                className="btn btn-md btn-outline-secondary mx-2"
-                to="/dashboard"
-            >
-                <strong>Dashboard</strong>
-            </Link>
-            <Link
-                className="btn btn-md btn-outline-secondary mx-2"
-                onClick={props.logout}
-                to="/"
-            >
-                <strong>Logout</strong>
-            </Link>
+        <div className="row">
+            <div style={{marginRight: 50, color: 'pink'}}>
+                <h3>Hello {props.auth.username}</h3>
+            </div>
+            <div className="navbar-item">
+                <Link
+                    className="btn btn-md btn-outline-secondary mx-2"
+                    to="/dashboard"
+                >
+                    <strong>Dashboard</strong>
+                </Link>
+                <Link
+                    className="btn btn-md btn-outline-secondary mx-2"
+                    onClick={props.logout}
+                    to="/"
+                >
+                    <strong>Logout</strong>
+                </Link>
+            </div>
         </div>
     )
 
@@ -60,11 +64,8 @@ function Header(props) {
                         </Link>
                     </div>
                 </div>
-                <div className="">
-                    <div className="navbar-item">
-                        {props.auth.isAuthenticated ? authLinks : guestLinks}
-                    </div>
-                </div>
+
+                {props.auth.isAuthenticated ? authLinks : guestLinks}
             </nav>
         </div>
     )

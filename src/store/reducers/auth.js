@@ -5,7 +5,8 @@ const initialState ={
     token: null,
     error: null,
     loading: true,
-    isAuthenticated: null
+    isAuthenticated: null,
+    username: null
 }
 
 const authStart = (state, action) => {
@@ -20,7 +21,8 @@ const authSuccess = (state, action) => {
         token: action.token,
         error: null,
         loading: false,
-        isAuthenticated: true
+        isAuthenticated: true,
+        username: action.username
     })
 }
 
@@ -36,11 +38,13 @@ const authLogout = (state, action) =>{
     return updateObject(state, {
         token: null,
         loading: false,
-        isAuthenticated: false
+        isAuthenticated: false,
+        username: null
     })
 }
 
 const reducer = (state=initialState, action) => {
+    
     
     switch(action.type){
         case actionTypes.AUTH_START:

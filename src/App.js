@@ -50,6 +50,7 @@ function App(props) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.authReducer.token !== null,
+        username: state.authReducer.username 
     }
 }
 
