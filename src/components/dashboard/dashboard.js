@@ -1,15 +1,51 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { useSelector } from 'react-redux'
 import Spinner from '../Spinner'
 
 const Dashboard = () => {
+    const [games, setGames] = useState(null)
+    const { loading, token } = useSelector((state) => state.authReducer)
 
-    const {loading} = useSelector((state) => state.authReducer)
-    return loading ? (
-        <Spinner/>
-    ) : (
-        <div>Dashboard</div>
-    )
+    useEffect(() => {
+        // console.log(token)
+        if (token) {
+            axios.defaults.headers = {
+                Authorization: token,
+            }
+            axios
+                .get('http://127.0.0.1:8000/api/')
+                .then((res) => {
+                    setGames(res.data)
+                    console.log(res.data)
+                })
+                .catch((err) => {
+                    console.log('Error in dashboard: ', err)
+                })
+        }
+
+        // works
+        // axios
+        //     .post('http://127.0.0.1:8000/api/', {
+        //         gameDate: 'test20',
+        //         gameID: 'test20ID',
+        //     })
+        //     .then((res) => console.log(res))
+        //     .catch((err) => console.log(err))
+        // axios
+        //     .delete('http://127.0.0.1:8000/api/4')
+        //     .then((res) => console.log(res))
+        //     .catch((err) => console.log(err))
+        // axios
+        //     .put('http://127.0.0.1:8000/api/3/', {
+        //         gameDate: '2021',
+        //         gameID: '324',
+        //     })
+        //     .then((res) => console.log(res))
+        //     .catch((err) => console.log(err))
+    }, [token])
+
+    return loading ? <Spinner /> : <div>Dashboard</div>
 }
 
 export default Dashboard

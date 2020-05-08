@@ -119,18 +119,20 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.AllowAny',
-    # ),
-
+    
+    # Authenication classes and permission classes
+    # dont work together.
+    
     # Need token
-    # 'DEFAULT_AUTHENTICATION_CLASSES': (
-    #     'rest_framework.authentication.TokenAuthentication',
-    # ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        
+    ),
 
-    'DEFAULT_PERMISSION_CLASS': [
-        "rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly"
-    ]
+
+    # 'DEFAULT_PERMISSION_CLASSES': [
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ]
 }
 # Internationalization
 # https://docs.djangoproject.com/en/3.0/topics/i18n/
@@ -159,7 +161,17 @@ STATICFILES_DIRS = (
 # Enable CORS for all domains by
 # adding the following setting
 CORS_ORIGIN_ALLOW_ALL = True
-
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
 ACCOUNT_EMAIL_VERIFICATION = 'none'
 ACCOUNT_AUTHENTICATION_METHOD = 'username'
 ACCOUNT_EMAIL_REQUIRED = False

@@ -4,6 +4,7 @@ from django.db import models
 
 
 class Game(models.Model):
+
     gameDate = models.CharField(max_length=120)
     gameID = models.CharField(max_length=120)
 

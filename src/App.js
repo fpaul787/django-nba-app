@@ -1,4 +1,5 @@
 import React, { Fragment, useEffect } from 'react'
+import axios from 'axios'
 import {
     BrowserRouter as Router,
     Switch,
@@ -14,16 +15,26 @@ import {
     NoMatch,
     PrivateRoute,
     Dashboard,
-    Alert
+    Alert,
 } from './components/exports'
 import { connect } from 'react-redux'
-
 
 import * as actions from './store/actions/auth'
 
 function App(props) {
     useEffect(() => {
-        
+        // axios.defaults.headers = {
+        //     'Content-Type': 'application/json',
+        //     Authorization: 'props.token',
+        // }
+        // axios
+        //     .get('http://127.0.0.1:8000/api/')
+        //     .then((res) => {
+        //         console.log(res.data)
+        //     })
+        //     .catch((err) => {
+        //         console.log('Error in dashboard: ', err)
+        //     })
         props.onTryAutoSignup()
     })
 
@@ -32,14 +43,19 @@ function App(props) {
             <Fragment>
                 <Header auth={props} />
                 <div>
-                <Alert/>
+                    <Alert />
                 </div>
                 <Switch>
                     <Route exact path="/" component={Home}></Route>
                     <Route exact path="/track" component={Track} />
                     <Route exact path="/login" component={Login} />
                     <Route exact path="/register" component={Register} />
-                    <PrivateRoute exact path="/dashboard" component={Dashboard} auth={props}/>
+                    <PrivateRoute
+                        exact
+                        path="/dashboard"
+                        component={Dashboard}
+                        auth={props}
+                    />
                     <Route component={NoMatch} />
                 </Switch>
             </Fragment>
@@ -50,7 +66,8 @@ function App(props) {
 const mapStateToProps = (state) => {
     return {
         isAuthenticated: state.authReducer.token !== null,
-        username: state.authReducer.username 
+        username: state.authReducer.username,
+        token: state.authReducer.token,
     }
 }
 
