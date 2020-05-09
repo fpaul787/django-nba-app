@@ -1,5 +1,6 @@
-import React, { Fragment,  useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 import { Grid } from '@material-ui/core'
 import {
     Table,
@@ -19,6 +20,35 @@ import * as actions from '../../../store/actions/game'
 const GamesTable = ({ gameData }) => {
     const boxscore = useSelector((state) => state.gameReducer.game)
     const dispatch = useDispatch()
+    const { token } = useSelector((state) => state.authReducer)
+
+    const clicked = (event) => {
+        //console.log('clicked method')
+        //console.log(token)
+
+        // console.log(tokenString)
+
+        // console.log(lastFive)
+
+        if (token) {
+            const tokenString = String(token)
+            const lastFive = tokenString.slice(tokenString.length - 5)
+            axios.defaults.headers = {
+                Authorization: token,
+            }
+
+            axios
+                .post('http://127.0.0.1:8000/api/create/', {
+                    token: lastFive,
+                    gameDate: 'test20',
+                    gameID: 'test20ID',
+                })
+                .then((res) => console.log(res))
+                .catch((err) => console.log(err))
+        } else {
+            console.log('Not Logged In')
+        }
+    }
 
     useEffect(() => {
         if (gameData !== null) {
@@ -165,8 +195,11 @@ const GamesTable = ({ gameData }) => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Link to="/dashboard">
-                        <ColorButton className={classes.button}>
+                    <Link to="/track">
+                        <ColorButton
+                            className={classes.button}
+                            onClick={clicked}
+                        >
                             Add to my games
                         </ColorButton>
                     </Link>

@@ -14,10 +14,14 @@ const Dashboard = () => {
                 Authorization: token,
             }
             axios
-                .get('http://127.0.0.1:8000/api/')
+                .get(`http://127.0.0.1:8000/api/`, {
+                    params: {
+                        q: '6bf1b',
+                    },
+                })
                 .then((res) => {
                     setGames(res.data)
-                    console.log(res.data)
+                    // console.log(res.data)
                 })
                 .catch((err) => {
                     console.log('Error in dashboard: ', err)
@@ -45,7 +49,12 @@ const Dashboard = () => {
         //     .catch((err) => console.log(err))
     }, [token])
 
-    return loading ? <Spinner /> : <div>Dashboard</div>
+    if (games == null || loading) {
+        return <Spinner />
+    } else {
+        console.log(games)
+        return <div>Games Loaded</div>
+    }
 }
 
 export default Dashboard

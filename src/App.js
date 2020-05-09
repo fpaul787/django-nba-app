@@ -1,11 +1,6 @@
 import React, { Fragment, useEffect } from 'react'
-import axios from 'axios'
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Redirect,
-} from 'react-router-dom'
+// import axios from 'axios'
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import {
     Home,
     Header,
