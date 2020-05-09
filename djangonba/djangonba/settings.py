@@ -40,17 +40,39 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    
 
+    # REST framework
+    'rest_framework',
+    #TokenAuthentication
     'rest_framework.authtoken',
-    'rest_auth',
+
+    #django-rest-auth
+    'rest_auth',    
+
+    #django-rest-auth
+    # Registration
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'rest_auth.registration',
-    'allauth.socialaccount',
 
-    'rest_framework',
+    #django-rest-auth
+    # Social Authentication
+    'allauth.socialaccount',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.facebook',
+    'allauth.socialaccount.providers.twitter',
+
+    #Django App that adds 
+    #Cross-Origin Resource Sharing
+    # (CORS) headers to responses.
+    # Allows in-browser requests
+    # to Django application from other
+    # origins
     'corsheaders',
+
+    # Apps in Django Project
     'request',
     'games'
 

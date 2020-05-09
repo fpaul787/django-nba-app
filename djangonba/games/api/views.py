@@ -3,11 +3,11 @@ from games.models import Game
 from .serializers import GameSerializer
 
 
+
 # cleaner way
 # Only because we're specifing all
 # the viewsets
 class GameViewSet(ModelViewSet):
-    
     serializer_class = GameSerializer
     queryset = Game.objects.all()
 

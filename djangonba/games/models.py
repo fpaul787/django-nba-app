@@ -4,7 +4,8 @@ from django.db import models
 
 
 class Game(models.Model):
-
+    #last 5 characters of token
+    token = models.CharField(max_length=5)
     gameDate = models.CharField(max_length=120)
     gameID = models.CharField(max_length=120)
 
