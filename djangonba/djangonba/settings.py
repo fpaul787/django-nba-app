@@ -60,7 +60,6 @@ INSTALLED_APPS = [
     #django-rest-auth
     # Social Authentication
     'allauth.socialaccount',
-    'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.twitter',
 
