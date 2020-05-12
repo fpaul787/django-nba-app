@@ -16,15 +16,11 @@ const Dashboard = () => {
             const lastFive = tokenString.slice(tokenString.length - 5)
 
             axios.defaults.headers = {
-                Authorization: token,
+                Authorization: `Token ${token}`,
             }
 
             axios
-                .get(`http://127.0.0.1:8000/api/`, {
-                    params: {
-                        q: lastFive,
-                    },
-                })
+                .get(`http://127.0.0.1:8000/api/`)
                 .then((res) => {
                     setUserGames(res.data)
                 })

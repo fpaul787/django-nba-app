@@ -39,8 +39,9 @@ const GamesTable = ({ gameData }) => {
 
             const tokenString = String(token)
             const lastFive = tokenString.slice(tokenString.length - 5)
+
             axios.defaults.headers = {
-                Authorization: token,
+                Authorization: `Token ${token}`,
             }
 
             axios
@@ -49,7 +50,6 @@ const GamesTable = ({ gameData }) => {
                     gameDate: gameDate,
                     gameID: gameID,
                 })
-                // .then((res) => console.log(res))
                 .catch((err) => console.log(err))
         } else {
             alert('You must have a profile to add games')
