@@ -1,4 +1,5 @@
 from rest_framework.viewsets import ModelViewSet
+from rest_framework import permissions
 from games.models import Game
 from .serializers import GameSerializer
 from django.db.models import Q
@@ -18,14 +19,24 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView,
 # Provides a get method handler.
 
 class GamesListView(ListAPIView):
+    
+
+    permissions_classes = [
+        permissions.IsAuthenticatedOrReadOnly
+    ]
     serializer_class = GameSerializer
 
     def get_queryset(self):
-        queryset = Game.objects.all()
-        query = self.request.GET.get("q")
-        if query:
-            queryset = queryset.filter(Q(token__icontains=query)).distinct()
-        return queryset
+        return self.request.user.games.all()
+    
+    
+
+    # def get_queryset(self):
+    #     queryset = Game.objects.all()
+    #     query = self.request.GET.get("q")
+    #     if query:
+    #         queryset = queryset.filter(Q(token__icontains=query)).distinct()
+    #     return queryset
 
         
 
@@ -42,12 +53,16 @@ class GameDetailView(RetrieveAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
+
 # # for put
 
 
 class GameCreateView(CreateAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 # # Update API View
 # class GameUpdateView(UpdateAPIView):
