@@ -2,58 +2,52 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import Spinner from '../Spinner'
+import GameTable from './GameTable'
 
 const Dashboard = () => {
-    const [games, setGames] = useState(null)
-    const { loading, token } = useSelector((state) => state.authReducer)
+    const [userGames, setUserGames] = useState(null)
+
+    // not needed since you can't access page w/o being logged in
+    const { token } = useSelector((state) => state.authReducer)
 
     useEffect(() => {
-        // console.log(token)
         if (token) {
+            const tokenString = String(token)
+            const lastFive = tokenString.slice(tokenString.length - 5)
+
             axios.defaults.headers = {
                 Authorization: token,
             }
+
             axios
                 .get(`http://127.0.0.1:8000/api/`, {
                     params: {
-                        q: '6bf1b',
+                        q: lastFive,
                     },
                 })
                 .then((res) => {
-                    setGames(res.data)
-                    // console.log(res.data)
+                    setUserGames(res.data)
                 })
                 .catch((err) => {
                     console.log('Error in dashboard: ', err)
                 })
         }
-
-        // works
-        // axios
-        //     .post('http://127.0.0.1:8000/api/', {
-        //         gameDate: 'test20',
-        //         gameID: 'test20ID',
-        //     })
-        //     .then((res) => console.log(res))
-        //     .catch((err) => console.log(err))
-        // axios
-        //     .delete('http://127.0.0.1:8000/api/4')
-        //     .then((res) => console.log(res))
-        //     .catch((err) => console.log(err))
-        // axios
-        //     .put('http://127.0.0.1:8000/api/3/', {
-        //         gameDate: '2021',
-        //         gameID: '324',
-        //     })
-        //     .then((res) => console.log(res))
-        //     .catch((err) => console.log(err))
     }, [token])
 
-    if (games == null || loading) {
+    if (userGames === null) {
         return <Spinner />
+    } else if (userGames.length !== 0) {
+        return userGames.map((game) => {
+            return (
+                <GameTable
+                    key={game.gameID}
+                    gameDate={game.gameDate}
+                    gameID={game.gameID}
+                />
+            )
+        })
     } else {
-        console.log(games)
-        return <div>Games Loaded</div>
+        return <h1>Please add games to your dashboard</h1>
     }
 }
 

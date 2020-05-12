@@ -18,12 +18,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../../store/actions/game'
 
 const GamesTable = ({ gameData }) => {
-    const boxscore = useSelector((state) => state.gameReducer.game)
+    // need a isLoading variable in this reducer
+    let boxscore = useSelector((state) => state.gameReducer.game)
     const dispatch = useDispatch()
     const { token } = useSelector((state) => state.authReducer)
 
     const clicked = (event) => {
-        //console.log('clicked method')
+        event.preventDefault()
+
         //console.log(token)
 
         // console.log(tokenString)
@@ -31,6 +33,10 @@ const GamesTable = ({ gameData }) => {
         // console.log(lastFive)
 
         if (token) {
+            let gameID = gameData.gameId
+            let gameDate = gameData.startDateEastern
+            console.log(boxscore)
+
             const tokenString = String(token)
             const lastFive = tokenString.slice(tokenString.length - 5)
             axios.defaults.headers = {
@@ -40,13 +46,13 @@ const GamesTable = ({ gameData }) => {
             axios
                 .post('http://127.0.0.1:8000/api/create/', {
                     token: lastFive,
-                    gameDate: 'test20',
-                    gameID: 'test20ID',
+                    gameDate: gameDate,
+                    gameID: gameID,
                 })
-                .then((res) => console.log(res))
+                // .then((res) => console.log(res))
                 .catch((err) => console.log(err))
         } else {
-            console.log('Not Logged In')
+            alert('You must have a profile to add games')
         }
     }
 
@@ -115,7 +121,6 @@ const GamesTable = ({ gameData }) => {
             </Fragment>
         )
     } else {
-        // console.log(boxscore)
         const visitingTeamStatsLeaders = boxscore.stats.vTeam.leaders
         const homeTeamStatsLeaders = boxscore.stats.hTeam.leaders
 

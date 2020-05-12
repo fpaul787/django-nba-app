@@ -8,6 +8,7 @@ class Game(models.Model):
     token = models.CharField(max_length=5)
     gameDate = models.CharField(max_length=120)
     gameID = models.CharField(max_length=120)
+    
 
     def __str__(self):
         return self.gameDate

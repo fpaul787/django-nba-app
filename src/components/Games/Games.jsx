@@ -16,18 +16,15 @@ const Games = () => {
     const gamesData = useSelector((state) => state.gamesReducer.games)
     const dispatch = useDispatch()
 
-
     // may not need local state
-    const [gameData, setGameData] = useState(null);
+    const [gameData, setGameData] = useState(null)
     const [gameDate, setGameDate] = useState(new Date(2020, 2, 10))
     const classes = GamesStyles()
-
 
     useEffect(() => {
         const date = parseDate(gameDate)
         try {
             dispatch(actions.getGames(`${date}`))
-            
         } catch (error) {
             console.log(error)
         }
