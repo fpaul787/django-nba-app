@@ -20,11 +20,17 @@ const Register = (props) => {
     }
 
     const onSubmit = async (e) => {
-        console.log('called in Register')
         e.preventDefault()
 
         props.onAuthSignUp(username, email, password1, password2)
-        props.history.push('/') // redirect
+
+        //props.history.push('/') // redirect
+        setFormData({
+            username: '',
+            email: '',
+            password1: '',
+            password2: '',
+        })
     }
 
     let errorMessage = null
@@ -34,7 +40,7 @@ const Register = (props) => {
 
     // Redirect if logged in
     if (props.auth.isAuthenticated) {
-        return <Redirect />
+        return <Redirect to="/" />
     }
     return (
         <div>
@@ -59,6 +65,7 @@ const Register = (props) => {
                                 placeholder="Enter email"
                                 name="email"
                                 onChange={(e) => onChange(e)}
+                                value={email}
                             />
                         </div>
                         <div className="form-group">
@@ -69,6 +76,7 @@ const Register = (props) => {
                                 placeholder="User Name"
                                 name="username"
                                 onChange={(e) => onChange(e)}
+                                value={username}
                             />
                         </div>
                         <div className="form-group">
@@ -79,6 +87,7 @@ const Register = (props) => {
                                 placeholder="Password"
                                 name="password1"
                                 onChange={(e) => onChange(e)}
+                                value={password1}
                             />
                         </div>
                         <div className="form-group">
@@ -89,6 +98,7 @@ const Register = (props) => {
                                 placeholder="Confirm Password"
                                 name="password2"
                                 onChange={(e) => onChange(e)}
+                                value={password2}
                             />
                         </div>
 
