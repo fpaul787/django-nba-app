@@ -37,9 +37,6 @@ const GamesTable = ({ gameData }) => {
             let gameDate = gameData.startDateEastern
             console.log(boxscore)
 
-            const tokenString = String(token)
-            const lastFive = tokenString.slice(tokenString.length - 5)
-
             axios.defaults.headers = {
                 Authorization: `Token ${token}`,
             }

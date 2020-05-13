@@ -18,19 +18,19 @@ export const setAlert = (
 
         setTimeout(() => dispatch({ type: REMOVE_ALERT, payload: id }), timeout)
     } else {
+        const idList = []
         Object.keys(msg).forEach(function (key) {
-            id = uuid()
             msg[key].forEach((msg) => {
-                console.log(id)
+                id = uuid()
+                idList.push(id)
                 dispatch({
                     type: SET_ALERT,
                     payload: { msg, alertType, id },
                 })
+                setTimeout(() => {
+                    dispatch({ type: REMOVE_ALERT, payload: idList.pop() })
+                }, timeout)
             })
-            setTimeout(
-                () => dispatch({ type: REMOVE_ALERT, payload: id }),
-                timeout
-            )
         })
     }
 }
