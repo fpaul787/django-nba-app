@@ -13,7 +13,7 @@ import Typography from '@material-ui/core/Typography'
 import GamesTableStyles from './GamesTableStyles'
 import Spinner from '../Spinner'
 
-const GamesTable = ({ gameDate, gameID }) => {
+const DashboardGamesTable = ({ gameDate, gameID }) => {
     const [gameData, setGameData] = useState(null)
 
     const call = (gameDate, gameID) => {
@@ -26,6 +26,8 @@ const GamesTable = ({ gameDate, gameID }) => {
                 console.log(err)
             })
     }
+
+    const handleClick = (event) => {}
 
     useEffect(() => {
         call(gameDate, gameID)
@@ -114,10 +116,17 @@ const GamesTable = ({ gameDate, gameID }) => {
                             </TableBody>
                         </Table>
                     </TableContainer>
+                    <button
+                        style={{ marginTop: 20 }}
+                        className="btn btn-danger"
+                        onClick={handleClick}
+                    >
+                        Remove Game
+                    </button>
                 </Grid>
             </Fragment>
         )
     }
 }
 
-export default GamesTable
+export default DashboardGamesTable

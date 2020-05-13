@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import Spinner from '../Spinner'
-import GameTable from './GameTable'
+import DashboardGameTable from './DashboardGameTable'
 
 const Dashboard = () => {
     const [userGames, setUserGames] = useState(null)
@@ -12,9 +12,6 @@ const Dashboard = () => {
 
     useEffect(() => {
         if (token) {
-            const tokenString = String(token)
-            const lastFive = tokenString.slice(tokenString.length - 5)
-
             axios.defaults.headers = {
                 Authorization: `Token ${token}`,
             }
@@ -33,15 +30,38 @@ const Dashboard = () => {
     if (userGames === null) {
         return <Spinner />
     } else if (userGames.length !== 0) {
-        return userGames.map((game) => {
-            return (
-                <GameTable
-                    key={game.gameID}
-                    gameDate={game.gameDate}
-                    gameID={game.gameID}
-                />
-            )
-        })
+        return (
+            <div
+                style={{
+                    width: '200',
+                    height: '50',
+                    textAlign: 'center',
+                    marginTop: 20,
+                }}
+            >
+                <h1> Your Games</h1>
+                {userGames.map((game) => {
+                    return (
+                        <div
+                            key={game.id}
+                            style={{
+                                marginTop: 50,
+                                marginLeft: 500,
+                                marginRight: 'auto',
+                                width: '50%',
+                                padding: 'auto',
+                            }}
+                        >
+                            <DashboardGameTable
+                                key={game.gameID}
+                                gameDate={game.gameDate}
+                                gameID={game.gameID}
+                            />
+                        </div>
+                    )
+                })}
+            </div>
+        )
     } else {
         return <h1>Please add games to your dashboard</h1>
     }
