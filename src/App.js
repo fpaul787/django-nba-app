@@ -18,18 +18,6 @@ import * as actions from './store/actions/auth'
 
 function App(props) {
     useEffect(() => {
-        // axios.defaults.headers = {
-        //     'Content-Type': 'application/json',
-        //     Authorization: 'props.token',
-        // }
-        // axios
-        //     .get('http://127.0.0.1:8000/api/')
-        //     .then((res) => {
-        //         console.log(res.data)
-        //     })
-        //     .catch((err) => {
-        //         console.log('Error in dashboard: ', err)
-        //     })
         props.onTryAutoSignup()
     })
 

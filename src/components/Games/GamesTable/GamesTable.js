@@ -46,7 +46,6 @@ const GamesTable = ({ gameData }) => {
 
             axios
                 .post('http://127.0.0.1:8000/api/create/', {
-                    token: lastFive,
                     gameDate: gameDate,
                     gameID: gameID,
                 })

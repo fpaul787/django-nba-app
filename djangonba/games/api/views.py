@@ -18,6 +18,7 @@ from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView,
 # Used for read-only endpoints to represent a collection of model instances.
 # Provides a get method handler.
 
+
 class GamesListView(ListAPIView):
     
 
@@ -46,9 +47,6 @@ class GamesListView(ListAPIView):
 # # Used for read or update endpoints to represent a single model instance.
 # # Provides get, put and patch method handlers.
 
-# # might not need for my app
-
-
 class GameDetailView(RetrieveAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
@@ -64,15 +62,14 @@ class GameCreateView(CreateAPIView):
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
-# # Update API View
-# class GameUpdateView(UpdateAPIView):
-#     queryset = Game.objects.all()
-#     serializer_class = GameSerializer
 
 # Delete API View
 class GameDeleteView(DestroyAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
+
+    def perform_create(self, serializer):
+        serializer.save(owner=self.request.user)
 
 
 

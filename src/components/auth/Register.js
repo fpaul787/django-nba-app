@@ -20,6 +20,7 @@ const Register = (props) => {
     }
 
     const onSubmit = async (e) => {
+        console.log('called in Register')
         e.preventDefault()
 
         props.onAuthSignUp(username, email, password1, password2)
@@ -92,7 +93,11 @@ const Register = (props) => {
                         </div>
 
                         <button
-                            style={{ marginLeft: '10px', marginRight: '10px', marginBottom: '10px' }}
+                            style={{
+                                marginLeft: '10px',
+                                marginRight: '10px',
+                                marginBottom: '10px',
+                            }}
                             type="submit"
                             className="btn btn-primary"
                         >
@@ -100,10 +105,13 @@ const Register = (props) => {
                         </button>
 
                         <div>
-                            <small style={{
+                            <small
+                                style={{
                                     marginLeft: '10px',
                                     marginRight: '10px',
-                                }} className="form-text text-muted">
+                                }}
+                                className="form-text text-muted"
+                            >
                                 Already have an account?
                             </small>
                             <Link

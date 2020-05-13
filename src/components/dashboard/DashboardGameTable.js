@@ -27,7 +27,19 @@ const DashboardGamesTable = ({ gameDate, gameID }) => {
             })
     }
 
-    const handleClick = (event) => {}
+    const handleClick = () => {
+        // console.log(localStorage.getItem('token'))
+        // token = localStorage.getItem('token')
+        // axios.defaults.headers = {
+        //     Authorization: `Token ${token}`,
+        // }
+        // axios
+        //     .delete(`http://127.0.0.1:8000/api/`)
+        //     .then((res) => {})
+        //     .catch((err) => {
+        //         console.log('Error in dashboard: ', err)
+        //     })
+    }
 
     useEffect(() => {
         call(gameDate, gameID)
