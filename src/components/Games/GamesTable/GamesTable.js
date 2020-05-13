@@ -26,16 +26,9 @@ const GamesTable = ({ gameData }) => {
     const clicked = (event) => {
         event.preventDefault()
 
-        //console.log(token)
-
-        // console.log(tokenString)
-
-        // console.log(lastFive)
-
         if (token) {
             let gameID = gameData.gameId
             let gameDate = gameData.startDateEastern
-            console.log(boxscore)
 
             axios.defaults.headers = {
                 Authorization: `Token ${token}`,

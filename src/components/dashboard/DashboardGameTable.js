@@ -1,4 +1,5 @@
 import React, { Fragment, useState, useEffect } from 'react'
+import { Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { Grid } from '@material-ui/core'
 import {
@@ -13,7 +14,7 @@ import Typography from '@material-ui/core/Typography'
 import GamesTableStyles from './GamesTableStyles'
 import Spinner from '../Spinner'
 
-const DashboardGamesTable = ({ gameDate, gameID }) => {
+const DashboardGamesTable = (props) => {
     const [gameData, setGameData] = useState(null)
 
     const call = (gameDate, gameID) => {
@@ -28,22 +29,23 @@ const DashboardGamesTable = ({ gameDate, gameID }) => {
     }
 
     const handleClick = () => {
-        // console.log(localStorage.getItem('token'))
-        // token = localStorage.getItem('token')
-        // axios.defaults.headers = {
-        //     Authorization: `Token ${token}`,
-        // }
-        // axios
-        //     .delete(`http://127.0.0.1:8000/api/`)
-        //     .then((res) => {})
-        //     .catch((err) => {
-        //         console.log('Error in dashboard: ', err)
-        //     })
+        let token = localStorage.getItem('token')
+        axios.defaults.headers = {
+            Authorization: `Token ${token}`,
+        }
+        axios
+            .delete(`http://127.0.0.1:8000/api/${props.gameID}/delete`)
+            .then(() => {
+                window.location = '/dashboard'
+            })
+            .catch((err) => {
+                console.log('Error in dashboard Delete: ', err)
+            })
     }
 
     useEffect(() => {
-        call(gameDate, gameID)
-    }, [gameDate, gameID])
+        call(props.gameDate, props.gameID)
+    }, [props.gameDate, props.gameID])
     const classes = GamesTableStyles()
 
     if (gameData === null) {

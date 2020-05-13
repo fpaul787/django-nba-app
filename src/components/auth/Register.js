@@ -25,12 +25,14 @@ const Register = (props) => {
         props.onAuthSignUp(username, email, password1, password2)
 
         //props.history.push('/') // redirect
-        setFormData({
-            username: '',
-            email: '',
-            password1: '',
-            password2: '',
-        })
+        if (props.auth.isAuthenticated) {
+            setFormData({
+                username: '',
+                email: '',
+                password1: '',
+                password2: '',
+            })
+        }
     }
 
     let errorMessage = null

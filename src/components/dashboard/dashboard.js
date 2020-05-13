@@ -43,7 +43,7 @@ const Dashboard = () => {
                 {userGames.map((game) => {
                     return (
                         <div
-                            key={game.id}
+                            key={game.gameID}
                             style={{
                                 marginTop: 50,
                                 marginLeft: 500,
