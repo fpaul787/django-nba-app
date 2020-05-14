@@ -48,7 +48,6 @@ const GamesTable = ({ gameData }) => {
                     'danger'
                 )
             )
-            // alert('You must have a profile to add games')
         }
     }
 

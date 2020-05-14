@@ -63,7 +63,11 @@ const Dashboard = () => {
             </div>
         )
     } else {
-        return <h1>Please add games to your dashboard</h1>
+        return (
+            <h1 style={{ dispaly: 'flex', textAlign: 'center' }}>
+                Please add games to your dashboard
+            </h1>
+        )
     }
 }
 
