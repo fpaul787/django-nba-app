@@ -21,8 +21,9 @@ import * as alert_action from '../../../store/actions/alert'
 const GamesTable = ({ gameData }) => {
     // need a isLoading variable in this reducer
     let boxscore = useSelector((state) => state.gameReducer.game)
-    const dispatch = useDispatch()
     const { token } = useSelector((state) => state.authReducer)
+
+    const dispatch = useDispatch()
 
     const clicked = (event) => {
         event.preventDefault()
@@ -39,6 +40,14 @@ const GamesTable = ({ gameData }) => {
                 .post('http://127.0.0.1:8000/api/create/', {
                     gameDate: gameDate,
                     gameID: gameID,
+                })
+                .then(() => {
+                    dispatch(
+                        alert_action.setAlert(
+                            'Games added to dashboard',
+                            'success'
+                        )
+                    )
                 })
                 .catch((err) => console.log(err))
         } else {

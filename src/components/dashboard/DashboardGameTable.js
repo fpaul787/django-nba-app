@@ -12,9 +12,13 @@ import {
 import Typography from '@material-ui/core/Typography'
 import GamesTableStyles from './GamesTableStyles'
 import Spinner from '../Spinner'
+// import { useDispatch } from 'react-redux'
+//import * as actions from '../../store/actions/alert'
 
 const DashboardGamesTable = (props) => {
     const [gameData, setGameData] = useState(null)
+
+    //const dispatch = useDispatch()
 
     const call = (gameDate, gameID) => {
         axios
