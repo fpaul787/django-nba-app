@@ -13,7 +13,7 @@ import {
     Alert,
 } from './components/exports'
 import { connect } from 'react-redux'
-
+import './App.css'
 import * as actions from './store/actions/auth'
 
 function App(props) {
@@ -25,22 +25,24 @@ function App(props) {
         <Router>
             <Fragment>
                 <Header auth={props} />
-                <div>
-                    <Alert />
+                <div className="App">
+                    <div>
+                        <Alert />
+                    </div>
+                    <Switch>
+                        <Route exact path="/" component={Home}></Route>
+                        <Route exact path="/track" component={Track} />
+                        <Route exact path="/login" component={Login} />
+                        <Route exact path="/register" component={Register} />
+                        <PrivateRoute
+                            exact
+                            path="/dashboard"
+                            component={Dashboard}
+                            auth={props}
+                        />
+                        <Route component={NoMatch} />
+                    </Switch>
                 </div>
-                <Switch>
-                    <Route exact path="/" component={Home}></Route>
-                    <Route exact path="/track" component={Track} />
-                    <Route exact path="/login" component={Login} />
-                    <Route exact path="/register" component={Register} />
-                    <PrivateRoute
-                        exact
-                        path="/dashboard"
-                        component={Dashboard}
-                        auth={props}
-                    />
-                    <Route component={NoMatch} />
-                </Switch>
             </Fragment>
         </Router>
     )
