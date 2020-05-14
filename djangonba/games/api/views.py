@@ -14,8 +14,9 @@ class GamesListView(ListAPIView):
     ]
     serializer_class = GameSerializer
 
-    def get_queryset(self):
-        return self.request.user.games.all() 
+    queryset = Game.objects.all()
+    # def get_queryset(self):
+    #     return self.request.user.games.all() 
     
 
 # Used for read or update endpoints to represent a single model instance.

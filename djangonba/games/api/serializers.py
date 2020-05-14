@@ -9,4 +9,4 @@ from games.models import Game
 class GameSerializer(serializers.ModelSerializer):
     class Meta:
         model = Game
-        fields = ('gameDate', 'gameID')
+        fields = ('id', 'gameDate', 'gameID')
