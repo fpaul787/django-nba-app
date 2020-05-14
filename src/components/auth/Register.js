@@ -50,14 +50,7 @@ const Register = (props) => {
             {props.loading ? (
                 <Spinner />
             ) : (
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '80vh',
-                    }}
-                >
+                <div className="form">
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="form-group">
                             <label>Email</label>
@@ -105,33 +98,18 @@ const Register = (props) => {
                         </div>
 
                         <button
-                            style={{
-                                marginLeft: '10px',
-                                marginRight: '10px',
-                                marginBottom: '10px',
-                            }}
                             type="submit"
-                            className="btn btn-primary"
+                            className="register-form-button btn btn-primary"
                         >
                             Register
                         </button>
 
                         <div>
-                            <small
-                                style={{
-                                    marginLeft: '10px',
-                                    marginRight: '10px',
-                                }}
-                                className="form-text text-muted"
-                            >
+                            <small className="small-text form-text text-muted">
                                 Already have an account?
                             </small>
                             <Link
-                                className="btn btn-secondary"
-                                style={{
-                                    marginLeft: '10px',
-                                    marginRight: '10px',
-                                }}
+                                className="login-form-button btn btn-secondary"
                                 to="/login"
                             >
                                 Login

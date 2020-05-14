@@ -25,6 +25,11 @@
 	width: 100%;
 }
 
+.register-form-button {
+	margin-bottom: 15px;
+	width: 100%;
+}
+
 .small-text {
 	margin-right: 10px;
 	font-size: medium;
