@@ -16,6 +16,7 @@ import Spinner from '../../Spinner'
 import { ColorButton } from './ColorButton'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../../store/actions/game'
+import * as alert_action from '../../../store/actions/alert'
 
 const GamesTable = ({ gameData }) => {
     // need a isLoading variable in this reducer
@@ -41,7 +42,13 @@ const GamesTable = ({ gameData }) => {
                 })
                 .catch((err) => console.log(err))
         } else {
-            alert('You must have a profile to add games')
+            dispatch(
+                alert_action.setAlert(
+                    'You must have a profile to add games',
+                    'danger'
+                )
+            )
+            // alert('You must have a profile to add games')
         }
     }
 
