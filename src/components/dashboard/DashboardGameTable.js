@@ -33,7 +33,7 @@ const DashboardGamesTable = (props) => {
             Authorization: `Token ${token}`,
         }
         axios
-            .delete(`http://127.0.0.1:8000/api/${props.gameID}/delete`)
+            .delete(`http://127.0.0.1:8000/api/${props.id}/delete`)
             .then(() => {
                 window.location = '/dashboard'
             })

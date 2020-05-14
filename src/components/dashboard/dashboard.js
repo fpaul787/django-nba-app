@@ -19,6 +19,7 @@ const Dashboard = () => {
             axios
                 .get(`http://127.0.0.1:8000/api/`)
                 .then((res) => {
+                    //console.log(res.data)
                     setUserGames(res.data)
                 })
                 .catch((err) => {
@@ -43,7 +44,7 @@ const Dashboard = () => {
                 {userGames.map((game) => {
                     return (
                         <div
-                            key={game.gameID}
+                            key={game.id}
                             style={{
                                 marginTop: 50,
                                 marginLeft: 500,
@@ -53,7 +54,7 @@ const Dashboard = () => {
                             }}
                         >
                             <DashboardGameTable
-                                key={game.gameID}
+                                id={game.id}
                                 gameDate={game.gameDate}
                                 gameID={game.gameID}
                             />
