@@ -32,35 +32,45 @@ const Dashboard = () => {
         return <Spinner />
     } else if (userGames.length !== 0) {
         return (
-            <div
-                style={{
-                    textAlign: 'center',
-                    marginTop: 20,
-                    overflowY: 'auto',
-                    height: 500,
-                }}
-            >
-                <h1> Your Games</h1>
-                {userGames.map((game) => {
-                    return (
-                        <div
-                            key={game.id}
-                            style={{
-                                marginTop: 50,
-                                marginLeft: 500,
-                                marginRight: 'auto',
-                                width: '50%',
-                                padding: 'auto',
-                            }}
-                        >
-                            <DashboardGameTable
-                                id={game.id}
-                                gameDate={game.gameDate}
-                                gameID={game.gameID}
-                            />
-                        </div>
-                    )
-                })}
+            <div>
+                <h1
+                    style={{
+                        textAlign: 'center',
+                        marginTop: 20,
+                        marginBottom: 20,
+                    }}
+                >
+                    Your Games
+                </h1>
+
+                <div
+                    style={{
+                        textAlign: 'center',
+                        overflowY: 'auto',
+                        height: 500,
+                    }}
+                >
+                    {userGames.map((game) => {
+                        return (
+                            <div
+                                key={game.id}
+                                style={{
+                                    marginTop: 50,
+                                    marginLeft: 500,
+                                    marginRight: 'auto',
+                                    width: '50%',
+                                    padding: 'auto',
+                                }}
+                            >
+                                <DashboardGameTable
+                                    id={game.id}
+                                    gameDate={game.gameDate}
+                                    gameID={game.gameID}
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
             </div>
         )
     } else {
