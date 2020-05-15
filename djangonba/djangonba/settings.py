@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 import os
 from pathlib import Path
 
+
 # # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 #print(Path(BASE_DIR).parents[0] , str(4))
@@ -26,7 +27,14 @@ GRANDPARENT_BASE_DIR = Path(BASE_DIR).parents[0]
 SECRET_KEY = '&ktqa0eh3j3wo4on1-$hy)k_xy3t)s*m(6yihfwza+mv7eo+hp'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
+
+import mimetypes
+mimetypes.add_type("text/css", ".css", True)
+mimetypes.add_type("text/html", ".html", True)
+mimetypes.add_type("text/js", ".js", True)
+mimetypes.add_type("image/gif", ".gif", True)
+mimetypes.add_type("application/json", ".json", True)
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 
