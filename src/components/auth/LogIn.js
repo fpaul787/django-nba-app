@@ -21,9 +21,8 @@ const LogIn = (props) => {
 
     const onSubmit = async (e) => {
         e.preventDefault()
-
         props.onAuthLogin(username, password)
-        props.history.push('/login') // redirect
+        //props.history.push('/login') // redirect
     }
 
     let errorMessage = null
@@ -33,7 +32,7 @@ const LogIn = (props) => {
 
     // Redirect if logged in
     if (props.auth.isAuthenticated) {
-        return <Redirect to="/dashboard"/>
+        return <Redirect to="/dashboard" />
     }
     return (
         <div>
@@ -41,14 +40,7 @@ const LogIn = (props) => {
             {props.loading ? (
                 <Spin />
             ) : (
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '80vh',
-                    }}
-                >
+                <div className="form">
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="form-group">
                             <label>User Name</label>
@@ -71,25 +63,17 @@ const LogIn = (props) => {
                             />
                         </div>
                         <button
-                            style={{ marginLeft: '10px', marginRight: '10px', marginBottom: '10px'}}
                             type="submit"
-                            className="btn btn-primary"
+                            className="login-form-button btn btn-primary"
                         >
                             Login
                         </button>
                         <div>
-                            <small style={{
-                                    marginLeft: '10px',
-                                    marginRight: '10px',
-                                }} className="form-text text-muted">
+                            <small className="small-text form-text text-muted">
                                 Need to sign up?
                             </small>
                             <Link
-                                className="btn btn-secondary"
-                                style={{
-                                    marginLeft: '10px',
-                                    marginRight: '10px',
-                                }}
+                                className="signup-form-button btn btn-secondary"
                                 to="/register"
                             >
                                 Sign Up

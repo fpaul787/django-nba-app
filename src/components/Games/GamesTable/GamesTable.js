@@ -1,5 +1,6 @@
-import React, { Fragment,  useEffect } from 'react'
+import React, { Fragment, useEffect } from 'react'
 import { Link } from 'react-router-dom'
+import axios from 'axios'
 import { Grid } from '@material-ui/core'
 import {
     Table,
@@ -15,10 +16,62 @@ import Spinner from '../../Spinner'
 import { ColorButton } from './ColorButton'
 import { useDispatch, useSelector } from 'react-redux'
 import * as actions from '../../../store/actions/game'
+import * as alert_action from '../../../store/actions/alert'
 
 const GamesTable = ({ gameData }) => {
-    const boxscore = useSelector((state) => state.gameReducer.game)
+    // need a isLoading variable in this reducer
+    let boxscore = useSelector((state) => state.gameReducer.game)
+    const { token } = useSelector((state) => state.authReducer)
+
     const dispatch = useDispatch()
+
+    const clicked = (event) => {
+        event.preventDefault()
+
+        if (token) {
+            let gameID = gameData.gameId
+            let gameDate = gameData.startDateEastern
+
+            let lastFiveToken = token.slice(-5)
+            let gameID_token = gameID + lastFiveToken
+
+            axios.defaults.headers = {
+                Authorization: `Token ${token}`,
+            }
+
+            axios
+                .post('http://127.0.0.1:8000/api/create/', {
+                    gameDate: gameDate,
+                    gameID_token: gameID_token,
+                    gameID: gameID,
+                })
+                .then(() => {
+                    dispatch(
+                        alert_action.setAlert(
+                            'Games added to dashboard',
+                            'success'
+                        )
+                    )
+                })
+                .catch((err) => {
+                    if (err.response.data.gameID_token) {
+                        dispatch(
+                            alert_action.setAlert(
+                                'This game is already in your dashboard',
+                                'danger'
+                            )
+                        )
+                    }
+                })
+        } else {
+            dispatch(
+                alert_action.setAlert(
+                    'You must have a profile to add games',
+                    'danger'
+                )
+            )
+        }
+    }
 
     useEffect(() => {
         if (gameData !== null) {
@@ -85,7 +138,6 @@ const GamesTable = ({ gameData }) => {
             </Fragment>
         )
     } else {
-        // console.log(boxscore)
         const visitingTeamStatsLeaders = boxscore.stats.vTeam.leaders
         const homeTeamStatsLeaders = boxscore.stats.hTeam.leaders
 
@@ -165,8 +217,11 @@ const GamesTable = ({ gameData }) => {
                             </TableBody>
                         </Table>
                     </TableContainer>
-                    <Link to="/dashboard">
-                        <ColorButton className={classes.button}>
+                    <Link to="/track">
+                        <ColorButton
+                            className={classes.button}
+                            onClick={clicked}
+                        >
                             Add to my games
                         </ColorButton>
                     </Link>

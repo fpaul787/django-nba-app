@@ -23,7 +23,16 @@ const Register = (props) => {
         e.preventDefault()
 
         props.onAuthSignUp(username, email, password1, password2)
-        props.history.push('/') // redirect
+
+        //props.history.push('/') // redirect
+        if (props.auth.isAuthenticated) {
+            setFormData({
+                username: '',
+                email: '',
+                password1: '',
+                password2: '',
+            })
+        }
     }
 
     let errorMessage = null
@@ -33,7 +42,7 @@ const Register = (props) => {
 
     // Redirect if logged in
     if (props.auth.isAuthenticated) {
-        return <Redirect />
+        return <Redirect to="/" />
     }
     return (
         <div>
@@ -41,14 +50,7 @@ const Register = (props) => {
             {props.loading ? (
                 <Spinner />
             ) : (
-                <div
-                    style={{
-                        display: 'flex',
-                        justifyContent: 'center',
-                        alignItems: 'center',
-                        height: '80vh',
-                    }}
-                >
+                <div className="form">
                     <form onSubmit={(e) => onSubmit(e)}>
                         <div className="form-group">
                             <label>Email</label>
@@ -58,6 +60,7 @@ const Register = (props) => {
                                 placeholder="Enter email"
                                 name="email"
                                 onChange={(e) => onChange(e)}
+                                value={email}
                             />
                         </div>
                         <div className="form-group">
@@ -68,6 +71,7 @@ const Register = (props) => {
                                 placeholder="User Name"
                                 name="username"
                                 onChange={(e) => onChange(e)}
+                                value={username}
                             />
                         </div>
                         <div className="form-group">
@@ -78,6 +82,7 @@ const Register = (props) => {
                                 placeholder="Password"
                                 name="password1"
                                 onChange={(e) => onChange(e)}
+                                value={password1}
                             />
                         </div>
                         <div className="form-group">
@@ -88,30 +93,23 @@ const Register = (props) => {
                                 placeholder="Confirm Password"
                                 name="password2"
                                 onChange={(e) => onChange(e)}
+                                value={password2}
                             />
                         </div>
 
                         <button
-                            style={{ marginLeft: '10px', marginRight: '10px', marginBottom: '10px' }}
                             type="submit"
-                            className="btn btn-primary"
+                            className="register-form-button btn btn-primary"
                         >
                             Register
                         </button>
 
                         <div>
-                            <small style={{
-                                    marginLeft: '10px',
-                                    marginRight: '10px',
-                                }} className="form-text text-muted">
+                            <small className="small-text form-text text-muted">
                                 Already have an account?
                             </small>
                             <Link
-                                className="btn btn-secondary"
-                                style={{
-                                    marginLeft: '10px',
-                                    marginRight: '10px',
-                                }}
+                                className="login-form-button btn btn-secondary"
                                 to="/login"
                             >
                                 Login

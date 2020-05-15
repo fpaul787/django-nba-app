@@ -2,26 +2,27 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import * as actions from '../../../store/actions/auth'
 import { connect } from 'react-redux'
-
+import logo from './trackerlogo.png'
+import './header.css'
 function Header(props) {
     const authLinks = (
         <div className="row">
-            <div style={{marginRight: 50, color: 'pink'}}>
-                <h3>Hello {props.auth.username}</h3>
+            <div style={{ marginTop: 5, marginRight: 15, color: 'pink' }}>
+                <h5>Hello {props.auth.username}</h5>
             </div>
             <div className="navbar-item">
                 <Link
                     className="btn btn-md btn-outline-secondary mx-2"
                     to="/dashboard"
                 >
-                    <strong>Dashboard</strong>
+                    <strong className="text">Dashboard</strong>
                 </Link>
                 <Link
                     className="btn btn-md btn-outline-secondary mx-2"
                     onClick={props.logout}
                     to="/"
                 >
-                    <strong>Logout</strong>
+                    <strong className="text">Logout</strong>
                 </Link>
             </div>
         </div>
@@ -30,13 +31,13 @@ function Header(props) {
     const guestLinks = (
         <div>
             <Link to="/login" className="btn btn-md btn-outline-secondary mx-2">
-                <strong>Login</strong>
+                <strong className="text">Login</strong>
             </Link>
             <Link
                 to="/register"
                 className="btn btn-md btn-outline-secondary mx-2"
             >
-                <strong>Register</strong>
+                <strong className="text">Register</strong>
             </Link>
         </div>
     )
@@ -49,8 +50,9 @@ function Header(props) {
                 aria-label="main navigation"
             >
                 <div>
-                    <Link className="navbar-brand" to="/">
-                        Logo
+                    <Link to="/">
+                        <img src={logo} className="header-logo" alt="logo" />
+                        <h5 className="header-text">Game Tracker</h5>
                     </Link>
                 </div>
 
@@ -60,7 +62,7 @@ function Header(props) {
                             to="/track"
                             className="btn btn-md btn-outline-secondary mx-2"
                         >
-                            <strong>Track Games</strong>
+                            <h5 className="text">Track Games</h5>
                         </Link>
                     </div>
                 </div>

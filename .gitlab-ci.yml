@@ -1,10 +1,11 @@
+image: node:12
 
 stages:
   - build
   - test
+  - deploy
 
 build website:
-    image: node:12
     stage: build
     script:
       - unset CI #   get rid of "Treating warnings as errors because process.env.CI = true" error
@@ -22,7 +23,6 @@ test artifact:
       - grep -q "React" ./build/index.html
 
 test website:
-    image: node:12
     stage: test
     script:
       - npm install
@@ -30,5 +30,9 @@ test website:
       - npm start &
       - sleep 5 #not the smartest way to do it because it will always wait 5 seconds, despite how fast server is
       - curl "http://localhost:3000" | tac | tac | grep -q "React"
+      
+# deploy to heroku:
+#     state: deploy
+#     script:
       
     

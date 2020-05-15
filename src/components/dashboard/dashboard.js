@@ -1,15 +1,85 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import axios from 'axios'
 import { useSelector } from 'react-redux'
 import Spinner from '../Spinner'
+import DashboardGameTable from './DashboardGameTable'
 
 const Dashboard = () => {
+    const [userGames, setUserGames] = useState(null)
 
-    const {loading} = useSelector((state) => state.authReducer)
-    return loading ? (
-        <Spinner/>
-    ) : (
-        <div>Dashboard</div>
-    )
+    // not needed since you can't access page w/o being logged in
+    const { token } = useSelector((state) => state.authReducer)
+
+    useEffect(() => {
+        if (token) {
+            axios.defaults.headers = {
+                Authorization: `Token ${token}`,
+            }
+
+            axios
+                .get(`http://127.0.0.1:8000/api/`)
+                .then((res) => {
+                    //console.log(res.data)
+                    setUserGames(res.data)
+                })
+                .catch((err) => {
+                    console.log('Error in dashboard: ', err)
+                })
+        }
+    }, [token])
+
+    if (userGames === null) {
+        return <Spinner />
+    } else if (userGames.length !== 0) {
+        return (
+            <div>
+                <h1
+                    style={{
+                        textAlign: 'center',
+                        marginTop: 20,
+                        marginBottom: 20,
+                    }}
+                >
+                    Your Games
+                </h1>
+
+                <div
+                    style={{
+                        textAlign: 'center',
+                        overflowY: 'auto',
+                        height: 500,
+                    }}
+                >
+                    {userGames.map((game) => {
+                        return (
+                            <div
+                                key={game.id}
+                                style={{
+                                    marginTop: 50,
+                                    marginLeft: 500,
+                                    marginRight: 'auto',
+                                    width: '50%',
+                                    padding: 'auto',
+                                }}
+                            >
+                                <DashboardGameTable
+                                    id={game.id}
+                                    gameDate={game.gameDate}
+                                    gameID={game.gameID}
+                                />
+                            </div>
+                        )
+                    })}
+                </div>
+            </div>
+        )
+    } else {
+        return (
+            <h1 style={{ dispaly: 'flex', textAlign: 'center' }}>
+                Please add games to your dashboard
+            </h1>
+        )
+    }
 }
 
 export default Dashboard
