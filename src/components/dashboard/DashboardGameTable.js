@@ -54,6 +54,7 @@ const DashboardGamesTable = (props) => {
     if (gameData === null) {
         return <Spinner />
     } else {
+        console.log('hey')
         const visitingTeamStatsLeaders = gameData.stats.vTeam.leaders
         const homeTeamStatsLeaders = gameData.stats.hTeam.leaders
 

@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 class Game(models.Model):
     gameDate = models.CharField(max_length=120) ## Ex. 2020/03/01
+    gameID_token = models.CharField(max_length=120, unique=True)
     gameID = models.CharField(max_length=120) # Ex . 424252392
 
     #owner of specific game post

@@ -32,6 +32,9 @@ const GamesTable = ({ gameData }) => {
             let gameID = gameData.gameId
             let gameDate = gameData.startDateEastern
 
+            let lastFiveToken = token.slice(-5)
+            let gameID_token = gameID + lastFiveToken
+
             axios.defaults.headers = {
                 Authorization: `Token ${token}`,
             }
@@ -39,6 +42,7 @@ const GamesTable = ({ gameData }) => {
             axios
                 .post('http://127.0.0.1:8000/api/create/', {
                     gameDate: gameDate,
+                    gameID_token: gameID_token,
                     gameID: gameID,
                 })
                 .then(() => {
@@ -49,7 +53,16 @@ const GamesTable = ({ gameData }) => {
                         )
                     )
                 })
-                .catch((err) => console.log(err))
+                .catch((err) => {
+                    if (err.response.data.gameID_token) {
+                        dispatch(
+                            alert_action.setAlert(
+                                'This game is already in your dashboard',
+                                'danger'
+                            )
+                        )
+                    }
+                })
         } else {
             dispatch(
                 alert_action.setAlert(

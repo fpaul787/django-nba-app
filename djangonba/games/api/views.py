@@ -31,8 +31,10 @@ class GameCreateView(CreateAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
-    def perform_create(self, serializer):
+    def perform_create(self, serializer):            
         serializer.save(owner=self.request.user)
+
+    
 
 
 # Delete API View
