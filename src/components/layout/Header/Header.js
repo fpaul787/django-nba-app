@@ -2,11 +2,12 @@ import React from 'react'
 import { Link, withRouter } from 'react-router-dom'
 import * as actions from '../../../store/actions/auth'
 import { connect } from 'react-redux'
-
+import logo from './trackerlogo.png'
+import './header.css'
 function Header(props) {
     const authLinks = (
         <div className="row">
-            <div style={{marginRight: 50, color: 'pink'}}>
+            <div style={{ marginRight: 15, color: 'pink' }}>
                 <h3>Hello {props.auth.username}</h3>
             </div>
             <div className="navbar-item">
@@ -49,8 +50,9 @@ function Header(props) {
                 aria-label="main navigation"
             >
                 <div>
-                    <Link className="navbar-brand" to="/">
-                        Logo
+                    <Link to="/">
+                        <img src={logo} className="header-logo" alt="logo" />
+                        <h5 className="header-text">Game Tracker</h5>
                     </Link>
                 </div>
 

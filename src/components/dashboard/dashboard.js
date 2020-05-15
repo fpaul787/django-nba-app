@@ -34,10 +34,10 @@ const Dashboard = () => {
         return (
             <div
                 style={{
-                    width: '200',
-                    height: '50',
                     textAlign: 'center',
                     marginTop: 20,
+                    overflowY: 'auto',
+                    height: 500,
                 }}
             >
                 <h1> Your Games</h1>
