@@ -2,19 +2,22 @@ version: '3'
 
 services: 
   backend:
-    build: ./djangonba # folder backend
-    command:  python manage.py runserver 0.0.0.0:8000
+    build: 
+      context: ./djangonba # folder backend
     volumes:
       - ./djangonba:/app/backend
     ports:
       - "8000:8000"
+    command: >
+      sh -c "python manage.py runserver 0.0.0.0:8000"
+
   frontend:
-    build: .
-    command: npm start
+    build: 
+      context: .
+    command: >
+      sh -c "npm start"
     volumes: 
       - .:/app
-    environment: 
-      - NODE_ENV=development
     ports:
       - "3000:3000"
     stdin_open: true
