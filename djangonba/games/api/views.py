@@ -34,8 +34,6 @@ class GameCreateView(CreateAPIView):
     def perform_create(self, serializer):            
         serializer.save(owner=self.request.user)
 
-    
-
 
 # Delete API View
 class GameDeleteView(DestroyAPIView):

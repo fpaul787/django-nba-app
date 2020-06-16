@@ -1,11 +1,11 @@
 version: '3'
 
 services: 
-  backend:
+  djangonba:
     build: 
-      context: ./djangonba # folder backend
+      context: ./djangonba # folder
     volumes:
-      - ./djangonba:/app/backend
+      - ./djangonba:/djangonba
     ports:
       - "8000:8000"
     command: >
