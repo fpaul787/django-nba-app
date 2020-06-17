@@ -47,8 +47,8 @@ const DashboardGamesTable = (props) => {
     }
 
     useEffect(() => {
-        call(props.gameDate, props.gameID)
-    }, [props.gameDate, props.gameID])
+        call(props.gamedate, props.gameid)
+    }, [props.gamedate, props.gameid])
     const classes = GamesTableStyles()
 
     if (gameData === null) {

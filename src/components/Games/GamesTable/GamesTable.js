@@ -32,18 +32,14 @@ const GamesTable = ({ gameData }) => {
             let gameID = gameData.gameId
             let gameDate = gameData.startDateEastern
 
-            let lastFiveToken = token.slice(-5)
-            let gameID_token = gameID + lastFiveToken
-
             axios.defaults.headers = {
                 Authorization: `Token ${token}`,
             }
 
             axios
                 .post('http://127.0.0.1:8000/api/create/', {
-                    gameDate: gameDate,
-                    gameID_token: gameID_token,
-                    gameID: gameID,
+                    gamedate: gameDate,
+                    gameid: gameID,
                 })
                 .then(() => {
                     dispatch(
