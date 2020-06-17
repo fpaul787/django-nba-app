@@ -134,7 +134,7 @@ const DashboardGamesTable = (props) => {
                         </Table>
                     </TableContainer>
                     <button
-                        style={{ marginTop: 20 }}
+                        style={{ marginTop: 20, marginLeft: '40%' }}
                         className="btn btn-danger"
                         onClick={handleClick}
                     >

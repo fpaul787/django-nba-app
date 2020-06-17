@@ -3,6 +3,7 @@ import axios from 'axios'
 import { useSelector } from 'react-redux'
 import Spinner from '../Spinner'
 import DashboardGameTable from './DashboardGameTable'
+import './dashboard.css'
 
 const Dashboard = () => {
     const [userGames, setUserGames] = useState(null)
@@ -45,9 +46,9 @@ const Dashboard = () => {
 
                 <div
                     style={{
-                        textAlign: 'center',
                         overflowY: 'auto',
-                        height: 500,
+                        position: 'absolute',
+                        left: '10%',
                     }}
                 >
                     {userGames.map((game) => {
@@ -75,9 +76,11 @@ const Dashboard = () => {
         )
     } else {
         return (
-            <h1 style={{ dispaly: 'flex', textAlign: 'center' }}>
-                Please add games to your dashboard
-            </h1>
+            <div className="divCenter">
+                <h1 style={{ dispaly: 'flex', textAlign: 'center' }}>
+                    Please add games to your dashboard
+                </h1>
+            </div>
         )
     }
 }
