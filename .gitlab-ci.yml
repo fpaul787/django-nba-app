@@ -20,7 +20,7 @@ test artifact:
     image: alpine
     stage: test
     script:
-      - grep -q "React" ./build/index.html
+      - grep -q "NBA Game Tracker" ./build/index.html
 
 test website:
     stage: test
