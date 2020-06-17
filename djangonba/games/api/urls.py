@@ -8,5 +8,3 @@ urlpatterns = [
     path('<pk>/delete/', GameDeleteView.as_view())
 
 ]
-
-

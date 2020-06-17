@@ -1,10 +1,10 @@
-from rest_framework.viewsets import ModelViewSet
 from rest_framework import permissions
-from games.models import Game
-from .serializers import GameSerializer
-from django.db.models import Q
+from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, DestroyAPIView
 
-from rest_framework.generics import ListAPIView, RetrieveAPIView, CreateAPIView, UpdateAPIView, DestroyAPIView
+from games.models import Game
+
+from .serializers import GameSerializer
+
 
 # Used for read-only endpoints to represent a collection of model instances.
 # Provides a get method handler.
@@ -15,9 +15,7 @@ class GamesListView(ListAPIView):
     serializer_class = GameSerializer
 
     queryset = Game.objects.all()
-    # def get_queryset(self):
-    #     return self.request.user.games.all() 
-    
+
 
 # Used for read or update endpoints to represent a single model instance.
 # Provides get, put and patch method handlers.
@@ -31,7 +29,7 @@ class GameCreateView(CreateAPIView):
     queryset = Game.objects.all()
     serializer_class = GameSerializer
 
-    def perform_create(self, serializer):            
+    def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
 
 
@@ -42,6 +40,3 @@ class GameDeleteView(DestroyAPIView):
 
     def perform_create(self, serializer):
         serializer.save(owner=self.request.user)
-
-
-

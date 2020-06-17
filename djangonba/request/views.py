@@ -1,7 +1,5 @@
-from django.shortcuts import render
 import requests
-from django.http import JsonResponse, HttpResponse
-# Create your views here.
+from django.http import JsonResponse
 
 
 def boxscore(request, gameDate, gameID):
