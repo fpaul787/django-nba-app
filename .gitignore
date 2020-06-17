@@ -38,3 +38,4 @@ djangonba/db.sqlite3
 build
 static
 .ionide/symbolCache.db
+.env

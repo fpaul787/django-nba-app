@@ -23,7 +23,7 @@ GRANDPARENT_BASE_DIR = Path(BASE_DIR).parents[0]
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '&ktqa0eh3j3wo4on1-$hy)k_xy3t)s*m(6yihfwza+mv7eo+hp'
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

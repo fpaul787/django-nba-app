@@ -15,8 +15,8 @@ class ModelTests(TestCase):
         """Test the game string representation"""
         game = models.Game.objects.create(
             user=sample_user(),
-            gamedate='20200315',
-            gameid='7'
+            gamedate='20200102',
+            gameid='1'
         )
 
         self.assertEqual(str(game), game.gamedate)

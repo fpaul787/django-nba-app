@@ -2,6 +2,7 @@ version: '3'
 
 services: 
   djangonba:
+    env_file: .env
     build: 
       context: ./djangonba # folder
     volumes:
@@ -13,21 +14,23 @@ services:
              python manage.py migrate &&      
              python manage.py runserver 0.0.0.0:8000"
     environment:
-        - DB_HOST=db
-        - DB_NAME=app
-        - DB_USER=postgres
-        - DB_PASS=myscretpassword
+        - DB_HOST=${DB_HOST}
+        - DB_NAME=${DB_NAME}
+        - DB_USER=${DB_USER}
+        - DB_PASS=${DB_PASS}
     depends_on:
         - db
     
   db:
+    env_file: .env
     image: postgres:12-alpine
     environment: 
-      - POSTGRES_DB=app
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=myscretpassword
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
 
   frontend:
+    env_file: .env
     build: 
       context: .
     command: >
