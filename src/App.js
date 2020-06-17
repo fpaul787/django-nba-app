@@ -24,7 +24,10 @@ function App(props) {
     return (
         <Router>
             <Fragment>
-                <Header auth={props} />
+                <div>
+                    <Header auth={props} />
+                </div>
+
                 <div className="App">
                     <div>
                         <Alert />

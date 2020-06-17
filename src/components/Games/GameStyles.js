@@ -7,10 +7,9 @@ const GamesStyles = makeStyles({
     gamesPaper: {
         paddingRight: 50,
         paddingLeft: 50,
-        
+
         marginBottom: 30,
-        
-        
+        zIndex: 4,
         height: 500,
         width: 300,
         overflowY: 'auto',
@@ -29,10 +28,9 @@ const GamesStyles = makeStyles({
     },
 
     gameInfoItem: {
-       
         background: 'white',
         minWidth: 300,
-        
+
         width: 'auto',
         height: 300,
     },
@@ -40,28 +38,25 @@ const GamesStyles = makeStyles({
     ListItem: {
         background: 'pink',
         textAlign: 'center',
-
         marginTop: 30,
         marginBottom: 30,
+        zIndex: 'inherit',
     },
-
 
     datePickerGrid: {
         marginLeft: 70,
-        marginTop: 50    
+        marginTop: 50,
     },
 
     gamesDisplayGrid: {
         marginLeft: 40,
-        marginTop: 50
+        marginTop: 50,
     },
 
-    gameTableGrid:{
+    gameTableGrid: {
         marginLeft: 70,
-        marginTop: 50,   
-    }
-
-    
+        marginTop: 50,
+    },
 })
 
 export default GamesStyles

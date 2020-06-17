@@ -60,7 +60,7 @@ const Games = () => {
                 <Grid className={classes.gamesDisplayGrid} item xs={3}>
                     <h4>Games on {parseDate(gameDate, '/', true)}:</h4>
                     <Paper className={classes.gamesPaper}>
-                        <Fragment>
+                        <div>
                             <List>
                                 {games.map((game) => {
                                     return (
@@ -83,7 +83,7 @@ const Games = () => {
                                     )
                                 })}
                             </List>
-                        </Fragment>
+                        </div>
                     </Paper>
                 </Grid>
                 <Grid

@@ -1,5 +1,7 @@
 .App {
-	display: grid;
+	padding: 16px;
+	margin-top: 30px;
+	height: 100%; /* Used in this example to enable scrolling */
 }
 
 .App-logo {
