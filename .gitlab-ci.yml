@@ -29,7 +29,7 @@ test website:
       - npm install -g create-react-app 
       - npm start &
       - sleep 5 #not the smartest way to do it because it will always wait 5 seconds, despite how fast server is
-      - curl "http://localhost:3000" | tac | tac | grep -q "React"
+      - curl "http://localhost:3000" | tac | tac | grep -q "NBA Game Tracker"
       
 # deploy to heroku:
 #     state: deploy
