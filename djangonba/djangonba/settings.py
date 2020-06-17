@@ -40,42 +40,21 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-
-    # REST framework
     'rest_framework',
-    #TokenAuthentication
     'rest_framework.authtoken',
-
-    #django-rest-auth
     'rest_auth',    
-
-    #django-rest-auth
-    # Registration
     'django.contrib.sites',
     'allauth',
     'allauth.account',
     'rest_auth.registration',
-
-    #django-rest-auth
-    # Social Authentication
     'allauth.socialaccount',
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.twitter',
-
-    #Django App that adds 
-    #Cross-Origin Resource Sharing
-    # (CORS) headers to responses.
-    # Allows in-browser requests
-    # to Django application from other
-    # origins
     'corsheaders',
-
-    # Apps in Django Project
     'request',
     'games'
-
 ]
+
 SITE_ID = 1
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
@@ -115,8 +94,11 @@ WSGI_APPLICATION = 'djangonba.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.postgresql',
+        'HOST': os.environ.get('DB_HOST'),
+        'NAME': os.environ.get('DB_NAME'),
+        'USER': os.environ.get('DB_USER'),
+        'PASSWORD': os.environ.get('DB_PASS')
     }
 }
 
