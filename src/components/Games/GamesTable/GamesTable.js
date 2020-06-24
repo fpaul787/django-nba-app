@@ -50,10 +50,11 @@ const GamesTable = ({ gameData }) => {
                     )
                 })
                 .catch((err) => {
-                    if (err.response.data.gameID_token) {
+                    // console.log(err.response)
+                    if (err.response.data.message) {
                         dispatch(
                             alert_action.setAlert(
-                                'This game is already in your dashboard',
+                                err.response.data.message,
                                 'danger'
                             )
                         )
