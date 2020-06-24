@@ -1,4 +1,4 @@
-import React, { Fragment, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Grid, Paper, List, ListItem, ListItemText } from '@material-ui/core'
 import Spinner from '../Spinner'
 import GamesStyles from './GameStyles'
