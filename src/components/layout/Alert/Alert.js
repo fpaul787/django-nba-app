@@ -8,8 +8,14 @@ const Alert = ({ alerts }) =>
     alerts.map((alert) => (
         <div
             key={alert.id}
-            style={{ textAlign: 'center' }}
-            className={`alert alert-${alert.alertType}`}
+            style={{
+                textAlign: 'center',
+                marginTop: '15px',
+                marginLeft: '25%',
+                marginRight: '25%',
+            }}
+            className={`alert alert-${alert.alertType} center-block`}
+            role="alert"
         >
             {alert.msg}
         </div>
