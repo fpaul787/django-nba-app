@@ -22,7 +22,7 @@ const DashboardGamesTable = (props) => {
 
     const call = (gameDate, gameID) => {
         axios
-            .get(`http://127.0.0.1:8000/games/${gameDate}/${gameID}`)
+            .get(`/games/${gameDate}/${gameID}`)
             .then((res) => {
                 setGameData(res.data)
             })
@@ -37,7 +37,7 @@ const DashboardGamesTable = (props) => {
             Authorization: `Token ${token}`,
         }
         axios
-            .delete(`http://127.0.0.1:8000/api/${props.id}/delete`)
+            .delete(`/api/${props.id}/delete`)
             .then(() => {
                 window.location = '/dashboard'
             })

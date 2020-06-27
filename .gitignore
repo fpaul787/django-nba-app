@@ -39,3 +39,4 @@ build
 static
 .ionide/symbolCache.db
 .env
+/django_deploy

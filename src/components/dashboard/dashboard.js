@@ -18,7 +18,7 @@ const Dashboard = () => {
             }
 
             axios
-                .get(`http://127.0.0.1:8000/api/`)
+                .get(`/api/`)
                 .then((res) => {
                     // console.log(res.data)
                     setUserGames(res.data)
