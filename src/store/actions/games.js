@@ -8,7 +8,7 @@ import {GET_GAMES} from './types'
 export const getGames = (date) => dispatch => {
     
     //console.log('Date', date)
-    axios.get(`http://127.0.0.1:8000/games/${date}`)
+    axios.get(`/games/${date}`)
     .then(res => {
         
         dispatch({            
