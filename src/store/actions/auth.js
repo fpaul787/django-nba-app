@@ -45,7 +45,7 @@ export const authLogin = (username, password) => {
         dispatch(authStart())
 
         axios
-            .post('/rest-auth/login/', {
+            .post('http://django-nba.frantzapps.xyz/rest-auth/login/', {
                 username: username,
                 password: password,
             })
@@ -76,7 +76,7 @@ export const authSignup = (username, email, password1, password2) => {
     return (dispatch) => {
         dispatch(authStart())
         axios
-            .post('/rest-auth/registration/', {
+            .post('http://django-nba.frantzapps.xyz/rest-auth/registration/', {
                 username: username,
                 email: email,
                 password1: password1,

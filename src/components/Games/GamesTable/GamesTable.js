@@ -37,7 +37,7 @@ const GamesTable = ({ gameData }) => {
             }
 
             axios
-                .post('/api/create/', {
+                .post('http://django-nba.frantzapps.xyz/api/create/', {
                     gamedate: gameDate,
                     gameid: gameID,
                 })

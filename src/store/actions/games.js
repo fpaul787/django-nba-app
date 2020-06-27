@@ -8,7 +8,7 @@ import {GET_GAMES} from './types'
 export const getGames = (date) => dispatch => {
     
     //console.log('Date', date)
-    axios.get(`/games/${date}`)
+    axios.get(`http://django-nba.frantzapps.xyz/games/${date}`)
     .then(res => {
         
         dispatch({            

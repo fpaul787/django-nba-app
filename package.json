@@ -32,7 +32,7 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
-  "proxy": "http://django-nba.frantzapps.xyz/",
+  
   "eslintConfig": {
     "extends": "react-app"
   },

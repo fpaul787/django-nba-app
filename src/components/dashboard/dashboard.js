@@ -18,7 +18,7 @@ const Dashboard = () => {
             }
 
             axios
-                .get(`/api/`)
+                .get(`http://django-nba.frantzapps.xyz/api/`)
                 .then((res) => {
                     // console.log(res.data)
                     setUserGames(res.data)

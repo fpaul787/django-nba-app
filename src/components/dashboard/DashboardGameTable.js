@@ -22,7 +22,7 @@ const DashboardGamesTable = (props) => {
 
     const call = (gameDate, gameID) => {
         axios
-            .get(`/games/${gameDate}/${gameID}`)
+            .get(`http://django-nba.frantzapps.xyz/games/${gameDate}/${gameID}`)
             .then((res) => {
                 setGameData(res.data)
             })
@@ -37,9 +37,9 @@ const DashboardGamesTable = (props) => {
             Authorization: `Token ${token}`,
         }
         axios
-            .delete(`/api/${props.id}/delete`)
+            .delete(`http://django-nba.frantzapps.xyz/api/${props.id}/delete`)
             .then(() => {
-                window.location = '/dashboard'
+                window.location = 'http://nba-game-tracker.frantzapps.xyz/dashboard'
             })
             .catch((err) => {
                 console.log('Error in dashboard Delete: ', err)
